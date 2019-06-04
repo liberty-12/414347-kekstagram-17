@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Екатерина Кортошкина](https://up.htmlacademy.ru/javascript/17/user/414347).
-* Наставник: `Неизвестно`.
+* Наставник: [Елена Валеева](https://htmlacademy.ru/profile/nikkie8).
 
 ---
 
