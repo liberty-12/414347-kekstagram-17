@@ -1,5 +1,8 @@
 'use strict';
 
+
+// Creating 25 photo descriptions
+
 var PHOTOS_NUMBER = 25;
 
 var comments = ['Всё отлично!',
@@ -29,13 +32,37 @@ var createObject = function (commentArray) {
       'comment': getRandomElement(commentArray),
       'likes': y
     };
-  }
 
-  photoDescriptions.push(photoDescription);
+    photoDescriptions.push(photoDescription);
+  }
 
   return photoDescriptions;
 };
 
 var descriptions = createObject(comments);
 
-console.log(descriptions);
+
+// Rendering pictures
+var pictures = document.querySelector('.pictures');
+var pictureTemplate = document
+  .querySelector('#picture')
+  .content
+  .querySelector('.picture');
+
+var renderPicture = function (description) {
+  var pictureElement = pictureTemplate.cloneNode(true);
+
+  pictureElement.querySelector('.picture__img').src = description.avatar;
+  pictureElement.querySelector('.picture__comments').textContent = description.comment;
+  pictureElement.querySelector('.picture__likes').textContent = description.likes;
+
+  return pictureElement;
+};
+
+var fragment = document.createDocumentFragment();
+
+for (var i = 0; i < descriptions.length; i++) {
+  fragment.appendChild(renderPicture(descriptions[i]));
+}
+
+pictures.appendChild(fragment);
