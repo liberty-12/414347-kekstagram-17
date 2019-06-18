@@ -18,7 +18,7 @@ var getRandomInteger = function (min, max) {
   return Math.floor(min + Math.random() * (max + 1 - min));
 };
 
-var createObject = function (commentArray) {
+var createPhotoDescription = function (commentArray) {
   var photoDescriptions = [];
 
   for (var i = 0; i < PHOTOS_NUMBER; i++) {
@@ -37,7 +37,7 @@ var createObject = function (commentArray) {
   return photoDescriptions;
 };
 
-var descriptions = createObject(comments);
+var descriptions = createPhotoDescription(COMMENTS);
 
 
 // Rendering pictures
