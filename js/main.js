@@ -23,9 +23,9 @@ var createPhotoDescription = function (commentArray) {
 
   for (var i = 0; i < PHOTOS_NUMBER; i++) {
     var photoDescription = {
-      'avatar': 'photos/' + getRandomInteger(1, 25) + '.jpg',
-      'comment': getRandomElement(commentArray),
-      'likes': getRandomInteger(15, 200)
+      url: 'photos/' + getRandomInteger(1, 25) + '.jpg',
+      comment: getRandomElement(commentArray),
+      likes: getRandomInteger(15, 200)
     };
 
     photoDescriptions.push(photoDescription);
@@ -35,7 +35,6 @@ var createPhotoDescription = function (commentArray) {
 };
 
 var descriptions = createPhotoDescription(COMMENTS);
-
 
 // Rendering pictures
 var pictures = document.querySelector('.pictures');
@@ -47,17 +46,21 @@ var pictureTemplate = document
 var renderPicture = function (description) {
   var pictureElement = pictureTemplate.cloneNode(true);
 
-  pictureElement.querySelector('.picture__img').src = description.avatar;
+  pictureElement.querySelector('.picture__img').src = description.url;
   pictureElement.querySelector('.picture__comments').textContent = description.comment;
   pictureElement.querySelector('.picture__likes').textContent = description.likes;
 
   return pictureElement;
 };
 
-var fragment = document.createDocumentFragment();
+var addFragment = function (array) {
+  var fragment = document.createDocumentFragment();
 
-for (var i = 0; i < descriptions.length; i++) {
-  fragment.appendChild(renderPicture(descriptions[i]));
-}
+  for (var i = 0; i < array.length; i++) {
+    fragment.appendChild(renderPicture(array[i]));
+  }
 
-pictures.appendChild(fragment);
+  return fragment;
+};
+
+pictures.appendChild(addFragment(descriptions));
