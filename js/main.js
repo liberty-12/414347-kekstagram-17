@@ -22,13 +22,10 @@ var createPhotoDescription = function (commentArray) {
   var photoDescriptions = [];
 
   for (var i = 0; i < PHOTOS_NUMBER; i++) {
-    var x = getRandomInteger(1, 25);
-    var y = getRandomInteger(15, 200);
-
     var photoDescription = {
-      'avatar': 'photos/' + x + '.jpg',
+      'avatar': 'photos/' + getRandomInteger(1, 25) + '.jpg',
       'comment': getRandomElement(commentArray),
-      'likes': y
+      'likes': getRandomInteger(15, 200)
     };
 
     photoDescriptions.push(photoDescription);
