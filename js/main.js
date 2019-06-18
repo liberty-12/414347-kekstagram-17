@@ -28,12 +28,37 @@ var getMixedArray = function (arr) {
   return mixedArray;
 };
 
+var checkRepeats = function (elementsArray, element) {
+  var flag = false;
+
+  while ((flag === true) || (elementsArray.length < PHOTOS_NUMBER)) {
+    for (var j = 0; j < elementsArray.length; j++) {
+      if (element === elementsArray[j]) {
+        flag = true;
+      }
+    }
+
+    if (flag === false) {
+      elementsArray.push(element);
+    }
+
+    flag = false;
+    element = getRandomInteger(1, 25);
+  }
+
+  return elementsArray;
+};
+
 var createPhotoDescription = function (commentArray) {
   var photoDescriptions = [];
+  var photoNumbers = [];
+  var photoNumber = getRandomInteger(1, 25);
+
+  photoNumbers = checkRepeats(photoNumbers, photoNumber);
 
   for (var i = 0; i < PHOTOS_NUMBER; i++) {
     var photoDescription = {
-      url: 'photos/' + getRandomInteger(1, 25) + '.jpg',
+      url: 'photos/' + photoNumbers[i] + '.jpg',
       comment: getMixedArray(commentArray).slice(0, getRandomInteger(1, commentArray.length)),
       likes: getRandomInteger(15, 200)
     };
