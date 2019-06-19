@@ -25,17 +25,22 @@ var getMixedArray = function (arr) {
     mixedArray[j] = temp;
   }
 
-  return mixedArray;
+  var newArray = [];
+  var newArrayLength = getRandomInteger(1, arr.length);
+
+  for (i = 0; i < newArrayLength; i++) {
+    newArray.push(mixedArray[i]);
+  }
+
+  return newArray;
 };
 
 var checkRepeats = function (elementsArray, element) {
   var flag = false;
 
   while ((flag === true) || (elementsArray.length < PHOTOS_NUMBER)) {
-    for (var j = 0; j < elementsArray.length; j++) {
-      if (element === elementsArray[j]) {
-        flag = true;
-      }
+    if (elementsArray.indexOf(element) >= 0) {
+      flag = true;
     }
 
     if (flag === false) {
@@ -49,7 +54,7 @@ var checkRepeats = function (elementsArray, element) {
   return elementsArray;
 };
 
-var createPhotoDescription = function (commentArray) {
+var createPhotos = function (commentArray) {
   var photoDescriptions = [];
   var photoNumbers = [];
   var photoNumber = getRandomInteger(1, 25);
@@ -59,7 +64,7 @@ var createPhotoDescription = function (commentArray) {
   for (var i = 0; i < PHOTOS_NUMBER; i++) {
     var photoDescription = {
       url: 'photos/' + photoNumbers[i] + '.jpg',
-      comment: getMixedArray(commentArray).slice(0, getRandomInteger(1, commentArray.length)),
+      comments: getMixedArray(commentArray),
       likes: getRandomInteger(15, 200)
     };
 
@@ -69,7 +74,7 @@ var createPhotoDescription = function (commentArray) {
   return photoDescriptions;
 };
 
-var descriptions = createPhotoDescription(COMMENTS);
+var descriptions = createPhotos(COMMENTS);
 
 // Rendering pictures
 var pictures = document.querySelector('.pictures');
@@ -82,13 +87,13 @@ var renderPicture = function (description) {
   var pictureElement = pictureTemplate.cloneNode(true);
 
   pictureElement.querySelector('.picture__img').src = description.url;
-  pictureElement.querySelector('.picture__comments').textContent = description.comment.length;
+  pictureElement.querySelector('.picture__comments').textContent = description.comments.length;
   pictureElement.querySelector('.picture__likes').textContent = description.likes;
 
   return pictureElement;
 };
 
-var addFragment = function (array) {
+var addPhotoFragmentToDOM = function (array) {
   var fragment = document.createDocumentFragment();
 
   for (var i = 0; i < array.length; i++) {
@@ -98,4 +103,4 @@ var addFragment = function (array) {
   return fragment;
 };
 
-pictures.appendChild(addFragment(descriptions));
+pictures.appendChild(addPhotoFragmentToDOM(descriptions));
