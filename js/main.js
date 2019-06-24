@@ -30,7 +30,7 @@ var getNewLengthArray = function (arr) {
   return newArray;
 };
 
-var checkRepeats = function (elementsLength) {
+var getMixedArray = function (elementsLength) {
   var elementsArray = [];
   var element = getRandomInteger(1, elementsLength);
 
@@ -47,7 +47,7 @@ var checkRepeats = function (elementsLength) {
 
 var createPhotos = function (commentArray) {
   var photosArray = [];
-  var photoNumbers = checkRepeats(PHOTOS_NUMBER);
+  var photoNumbers = getMixedArray(PHOTOS_NUMBER);
 
   for (var i = 0; i < PHOTOS_NUMBER; i++) {
     var photo = {
