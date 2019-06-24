@@ -19,16 +19,7 @@ var getRandomInteger = function (min, max) {
   return Math.floor(min + Math.random() * (max + 1 - min));
 };
 
-var getMixedArray = function (arr) {
-  // var mixedArray = arr.slice();
-  //
-  // for (var i = mixedArray.length - 1; i > 0; i--) {
-  //   var j = Math.floor(Math.random() * (i + 1));
-  //   var temp = mixedArray[i];
-  //   mixedArray[i] = mixedArray[j];
-  //   mixedArray[j] = temp;
-  // }
-
+var getNewLengthArray = function (arr) {
   var newArray = [];
   var newArrayLength = getRandomInteger(1, arr.length);
 
@@ -61,7 +52,7 @@ var createPhotos = function (commentArray) {
   for (var i = 0; i < PHOTOS_NUMBER; i++) {
     var photo = {
       url: 'photos/' + photoNumbers[i] + '.jpg',
-      comments: getMixedArray(commentArray),
+      comments: getNewLengthArray(commentArray),
       likes: getRandomInteger(15, 200)
     };
 
