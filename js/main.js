@@ -39,20 +39,16 @@ var getMixedArray = function (arr) {
   return newArray;
 };
 
-var checkRepeats = function (elementsArray, element) {
-  var flag = false;
+var checkRepeats = function (elementsLength) {
+  var elementsArray = [];
+  var element = getRandomInteger(1, elementsLength);
 
-  while ((flag === true) || (elementsArray.length < PHOTOS_NUMBER)) {
-    if (elementsArray.indexOf(element) >= 0) {
-      flag = true;
-    }
-
-    if (flag === false) {
+  while (elementsArray.length < elementsLength) {
+    if (elementsArray.indexOf(element) > -1) {
+      element = getRandomInteger(1, elementsLength);
+    } else {
       elementsArray.push(element);
     }
-
-    flag = false;
-    element = getRandomInteger(1, 25);
   }
 
   return elementsArray;
@@ -60,10 +56,7 @@ var checkRepeats = function (elementsArray, element) {
 
 var createPhotos = function (commentArray) {
   var photosArray = [];
-  var photoNumbers = [];
-  var photoNumber = getRandomInteger(1, 25);
-
-  photoNumbers = checkRepeats(photoNumbers, photoNumber);
+  var photoNumbers = checkRepeats(PHOTOS_NUMBER);
 
   for (var i = 0; i < PHOTOS_NUMBER; i++) {
     var photo = {
