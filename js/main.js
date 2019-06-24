@@ -11,25 +11,29 @@ var COMMENTS = ['Всё отлично!',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
+var getRandomElementFromArray = function (arr) {
+  return arr[Math.floor((Math.random() * arr.length))];
+};
+
 var getRandomInteger = function (min, max) {
   return Math.floor(min + Math.random() * (max + 1 - min));
 };
 
 var getMixedArray = function (arr) {
-  var mixedArray = arr.slice();
-
-  for (var i = mixedArray.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
-    var temp = mixedArray[i];
-    mixedArray[i] = mixedArray[j];
-    mixedArray[j] = temp;
-  }
+  // var mixedArray = arr.slice();
+  //
+  // for (var i = mixedArray.length - 1; i > 0; i--) {
+  //   var j = Math.floor(Math.random() * (i + 1));
+  //   var temp = mixedArray[i];
+  //   mixedArray[i] = mixedArray[j];
+  //   mixedArray[j] = temp;
+  // }
 
   var newArray = [];
   var newArrayLength = getRandomInteger(1, arr.length);
 
-  for (i = 0; i < newArrayLength; i++) {
-    newArray.push(mixedArray[i]);
+  for (var i = 0; i < newArrayLength; i++) {
+    newArray.push(getRandomElementFromArray(arr));
   }
 
   return newArray;
@@ -55,26 +59,26 @@ var checkRepeats = function (elementsArray, element) {
 };
 
 var createPhotos = function (commentArray) {
-  var photoDescriptions = [];
+  var photosArray = [];
   var photoNumbers = [];
   var photoNumber = getRandomInteger(1, 25);
 
   photoNumbers = checkRepeats(photoNumbers, photoNumber);
 
   for (var i = 0; i < PHOTOS_NUMBER; i++) {
-    var photoDescription = {
+    var photo = {
       url: 'photos/' + photoNumbers[i] + '.jpg',
       comments: getMixedArray(commentArray),
       likes: getRandomInteger(15, 200)
     };
 
-    photoDescriptions.push(photoDescription);
+    photosArray.push(photo);
   }
 
-  return photoDescriptions;
+  return photosArray;
 };
 
-var descriptions = createPhotos(COMMENTS);
+var photos = createPhotos(COMMENTS);
 
 // Rendering pictures
 var pictures = document.querySelector('.pictures');
@@ -83,24 +87,24 @@ var pictureTemplate = document
   .content
   .querySelector('.picture');
 
-var renderPicture = function (description) {
+var renderPicture = function (photo) {
   var pictureElement = pictureTemplate.cloneNode(true);
 
-  pictureElement.querySelector('.picture__img').src = description.url;
-  pictureElement.querySelector('.picture__comments').textContent = description.comments.length;
-  pictureElement.querySelector('.picture__likes').textContent = description.likes;
+  pictureElement.querySelector('.picture__img').src = photo.url;
+  pictureElement.querySelector('.picture__comments').textContent = photo.comments.length;
+  pictureElement.querySelector('.picture__likes').textContent = photo.likes;
 
   return pictureElement;
 };
 
-var addPhotoFragmentToDOM = function (array) {
+var renderPhotosFragment = function (array) {
   var fragment = document.createDocumentFragment();
 
   for (var i = 0; i < array.length; i++) {
     fragment.appendChild(renderPicture(array[i]));
   }
 
-  return fragment;
+  pictures.appendChild(fragment);
 };
 
-pictures.appendChild(addPhotoFragmentToDOM(descriptions));
+renderPhotosFragment(photos);
