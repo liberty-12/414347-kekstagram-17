@@ -109,6 +109,7 @@ var onPopupEscPress = function (evt) {
 var openUploadPopup = function () {
   uploadPopup.classList.remove('hidden');
   document.addEventListener('keydown', onPopupEscPress);
+  uploadPreview.style.transform = 'scale(1)';
 };
 
 var closeUploadPopup = function () {
@@ -123,4 +124,47 @@ uploadFileField.addEventListener('change', function () {
 
 uploadClose.addEventListener('click', function () {
   closeUploadPopup();
+});
+
+// SCALE
+var SCALE_VALUE_MAX = 100;
+var SCALE_VALUE_MIN = 25;
+var SCALE_VALUE_STEP = 25;
+
+var scaleSmaller = document.querySelector('.scale__control--smaller');
+var scaleBigger = document.querySelector('.scale__control--bigger');
+var scaleValue = document.querySelector('.scale__control--value');
+var uploadPreview = document.querySelector('.img-upload__preview');
+
+var increaseValue = function () {
+  var intScaleValue = parseInt(scaleValue.value, 10);
+
+  if (scaleValue.value < SCALE_VALUE_MAX) {
+    intScaleValue += SCALE_VALUE_STEP;
+    scaleValue.value = intScaleValue;
+  }
+  transformUploadPreview(scaleValue.value);
+};
+
+var decreaseValue = function () {
+  if (scaleValue.value > SCALE_VALUE_MIN) {
+    scaleValue.value -= SCALE_VALUE_STEP;
+  }
+  transformUploadPreview(scaleValue.value);
+};
+
+var transformUploadPreview = function (value) {
+  if (value === '100') {
+    uploadPreview.style.transform = 'scale(1)';
+  } else {
+    uploadPreview.style.transform = 'scale(0.' + value + ')';
+  }
+};
+
+scaleBigger.addEventListener('click', function () {
+  increaseValue();
+});
+
+scaleSmaller.addEventListener('click', function () {
+  decreaseValue();
 });
