@@ -114,6 +114,7 @@ var openUploadPopup = function () {
 var closeUploadPopup = function () {
   uploadPopup.classList.add('hidden');
   document.removeEventListener('keydown', onPopupEscPress);
+  uploadFileField.value = '';
 };
 
 uploadFileField.addEventListener('change', function () {
