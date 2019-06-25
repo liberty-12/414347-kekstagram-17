@@ -168,3 +168,33 @@ scaleBigger.addEventListener('click', function () {
 scaleSmaller.addEventListener('click', function () {
   decreaseValue();
 });
+
+// EFFECTS
+var effectControls = document.querySelectorAll('.effects__radio');
+var effectPin = document.querySelectorAll('.effect-level__value');
+var effects = [];
+
+var checkEffect = function (arr) {
+  for (var i = 0; i < arr.length; i++) {
+    if (uploadPreview.classList.contains('effects__preview--' + arr[i])) {
+      uploadPreview.classList.remove('effects__preview--' + arr[i]);
+    }
+  }
+};
+
+var addEffectToUploadPreview = function (effect) {
+  checkEffect(effects);
+  uploadPreview.classList.add('effects__preview--' + effect);
+};
+
+var addClickListener = function (control, value) {
+  control.addEventListener('click', function () {
+    addEffectToUploadPreview(value);
+  });
+};
+
+for (var i = 0; i < effectControls.length; i++) {
+  var effectName = effectControls[i].value;
+  effects.push(effectName);
+  addClickListener(effectControls[i], effectName);
+}
