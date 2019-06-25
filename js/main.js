@@ -180,7 +180,7 @@ var effectLevelLine = document.querySelector('.effect-level__line');
 var effects = [];
 var currentEffect = '';
 
-var checkEffect = function (arr) {
+var deletePreviousEffect = function (arr) {
   for (var i = 0; i < arr.length; i++) {
     if (uploadPreview.classList.contains('effects__preview--' + arr[i])) {
       uploadPreview.classList.remove('effects__preview--' + arr[i]);
@@ -189,7 +189,7 @@ var checkEffect = function (arr) {
 };
 
 var addEffectToUploadPreview = function (effect) {
-  checkEffect(effects);
+  deletePreviousEffect(effects);
   uploadPreview.classList.add('effects__preview--' + effect);
   currentEffect = effect;
 };
@@ -226,8 +226,5 @@ var adjustEffect = function (lvl) {
 };
 
 effectLevelPin.addEventListener('click', function () {
-  // console.log(effectLevelPin.offsetTop);
-  // console.log(effectLevelPin.offsetLeft);
-
   changeEffectLevel();
 });
