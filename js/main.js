@@ -92,3 +92,34 @@ var renderPhotosFragment = function (array) {
 };
 
 renderPhotosFragment(photos);
+
+// show img-upload__overlay
+var ESC_KEYCODE = 27;
+
+var uploadFileField = document.querySelector('#upload-file');
+var uploadPopup = document.querySelector('.img-upload__overlay');
+var uploadClose = document.querySelector('#upload-cancel');
+
+var onPopupEscPress = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closeUploadPopup();
+  }
+};
+
+var openUploadPopup = function () {
+  uploadPopup.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+};
+
+var closeUploadPopup = function () {
+  uploadPopup.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
+uploadFileField.addEventListener('change', function () {
+  openUploadPopup();
+});
+
+uploadClose.addEventListener('click', function () {
+  closeUploadPopup();
+});
