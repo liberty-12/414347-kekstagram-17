@@ -170,9 +170,15 @@ scaleSmaller.addEventListener('click', function () {
 });
 
 // EFFECTS
+var EFFECT_LEVEL_LINE_WIDTH = 495 - 20 - 20;
+var EFFECT_LEVEL_PIN_WIDTH = 18;
+
 var effectControls = document.querySelectorAll('.effects__radio');
-var effectPin = document.querySelectorAll('.effect-level__value');
+var effectLevelPin = document.querySelector('.effect-level__pin');
+var effectLevelValue = document.querySelector('.effect-level__value');
+var effectLevelLine = document.querySelector('.effect-level__line');
 var effects = [];
+var currentEffect = '';
 
 var checkEffect = function (arr) {
   for (var i = 0; i < arr.length; i++) {
@@ -185,6 +191,7 @@ var checkEffect = function (arr) {
 var addEffectToUploadPreview = function (effect) {
   checkEffect(effects);
   uploadPreview.classList.add('effects__preview--' + effect);
+  currentEffect = effect;
 };
 
 var addClickListener = function (control, value) {
@@ -198,3 +205,29 @@ for (var i = 0; i < effectControls.length; i++) {
   effects.push(effectName);
   addClickListener(effectControls[i], effectName);
 }
+
+var changeEffectLevel = function () {
+  var effectLevelPinLeft = effectLevelPin.offsetLeft;
+  var effectLevelPinCenter = effectLevelPinLeft + (EFFECT_LEVEL_PIN_WIDTH / 2);
+  var effectLevelLineLeft = effectLevelLine.getBoundingClientRect().left;
+  var effectLevelLineRight = effectLevelLineLeft + EFFECT_LEVEL_LINE_WIDTH;
+
+  var level = effectLevelPinCenter / (effectLevelLineRight - effectLevelLineLeft);
+
+  effectLevelValue.value = level;
+
+  adjustEffect(level);
+};
+
+var adjustEffect = function (lvl) {
+  if (currentEffect === 'sepia') {
+    uploadPreview.style.filter = 'grayscale(' + lvl + ')';
+  }
+};
+
+effectLevelPin.addEventListener('click', function () {
+  // console.log(effectLevelPin.offsetTop);
+  // console.log(effectLevelPin.offsetLeft);
+
+  changeEffectLevel();
+});
