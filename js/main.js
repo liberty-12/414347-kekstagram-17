@@ -173,55 +173,57 @@ scaleSmaller.addEventListener('click', function () {
 var EFFECT_LEVEL_LINE_WIDTH = 495 - 20 - 20;
 var EFFECT_LEVEL_PIN_WIDTH = 18;
 
-var effectControls = document.querySelectorAll('.effects__radio');
+var effectsList = document.querySelector('.effects__list');
 var effectLevelPin = document.querySelector('.effect-level__pin');
 var effectLevelValue = document.querySelector('.effect-level__value');
 var effectLevelLine = document.querySelector('.effect-level__line');
-var effects = [];
 var currentEffect = '';
 
-var deletePreviousEffect = function (arr) {
-  for (var i = 0; i < arr.length; i++) {
-    if (uploadPreview.classList.contains('effects__preview--' + arr[i])) {
-      uploadPreview.classList.remove('effects__preview--' + arr[i]);
-    }
-  }
-};
-
 var addEffectToUploadPreview = function (effect) {
-  deletePreviousEffect(effects);
+  uploadPreview.classList.remove('effects__preview--' + currentEffect);
   uploadPreview.classList.add('effects__preview--' + effect);
   currentEffect = effect;
 };
 
-var addClickListener = function (control, value) {
-  control.addEventListener('click', function () {
-    addEffectToUploadPreview(value);
-  });
-};
+effectsList.addEventListener('click', function (evt) {
+  var target = evt.target;
+  if (target.tagName === 'INPUT') {
+    var targetEffect = target.value;
+    addEffectToUploadPreview(targetEffect);
+  }
+});
 
-for (var i = 0; i < effectControls.length; i++) {
-  var effectName = effectControls[i].value;
-  effects.push(effectName);
-  addClickListener(effectControls[i], effectName);
-}
-
+// EFFECT LEVEL
 var changeEffectLevel = function () {
   var effectLevelPinLeft = effectLevelPin.offsetLeft;
   var effectLevelPinCenter = effectLevelPinLeft + (EFFECT_LEVEL_PIN_WIDTH / 2);
   var effectLevelLineLeft = effectLevelLine.getBoundingClientRect().left;
   var effectLevelLineRight = effectLevelLineLeft + EFFECT_LEVEL_LINE_WIDTH;
 
-  var level = effectLevelPinCenter / (effectLevelLineRight - effectLevelLineLeft);
+  var level = (effectLevelPinCenter / (effectLevelLineRight - effectLevelLineLeft)).toFixed(1);
 
   effectLevelValue.value = level;
 
-  adjustEffect(level);
+  adjustEffect(level, currentEffect);
 };
 
-var adjustEffect = function (lvl) {
-  if (currentEffect === 'sepia') {
-    uploadPreview.style.filter = 'grayscale(' + lvl + ')';
+var adjustEffect = function (lvl, curEffect) {
+  switch (curEffect) {
+    case 'chrome':
+      uploadPreview.style.filter = 'grayscale(' + lvl + ')';
+      break;
+    case 'sepia':
+      uploadPreview.style.filter = 'sepia(' + lvl + ')';
+      break;
+    case 'marvin':
+      uploadPreview.style.filter = 'invert(' + lvl * 100 + '%)';
+      break;
+    case 'phobos':
+      uploadPreview.style.filter = 'blur(' + lvl + ')';
+      break;
+    case 'heat':
+      uploadPreview.style.filter = 'brightness(' + lvl + ')';
+      break;
   }
 };
 
