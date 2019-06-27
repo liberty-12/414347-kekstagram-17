@@ -172,16 +172,26 @@ scaleSmaller.addEventListener('click', function () {
 // EFFECTS
 var EFFECT_LEVEL_LINE_WIDTH = 495 - 20 - 20;
 var EFFECT_LEVEL_PIN_WIDTH = 18;
+var MARVIN_LEVEL_MAX = 100;
+var EFFECT_LEVEL_MAX = 1;
+var PHOBOS_LEVEL_MAX = 3;
+var HEAT_LEVEL_MIN = 1;
+var HEAT_LEVEL_MAX = 3;
 
 var effectsList = document.querySelector('.effects__list');
+var effectLevelSlider = document.querySelector('.img-upload__effect-level');
 var effectLevelPin = document.querySelector('.effect-level__pin');
 var effectLevelValue = document.querySelector('.effect-level__value');
 var effectLevelLine = document.querySelector('.effect-level__line');
 var currentEffect = '';
 
+effectLevelSlider.classList.add('hidden');
+
 var addEffectToUploadPreview = function (effect) {
   uploadPreview.classList.remove('effects__preview--' + currentEffect);
   uploadPreview.classList.add('effects__preview--' + effect);
+  effectLevelSlider.classList.remove('hidden');
+
   currentEffect = effect;
 };
 
@@ -190,6 +200,7 @@ effectsList.addEventListener('click', function (evt) {
   if (target.tagName === 'INPUT') {
     var targetEffect = target.value;
     addEffectToUploadPreview(targetEffect);
+    adjustEffect(EFFECT_LEVEL_MAX, currentEffect);
   }
 });
 
@@ -209,6 +220,10 @@ var changeEffectLevel = function () {
 
 var adjustEffect = function (lvl, curEffect) {
   switch (curEffect) {
+    case 'none':
+      uploadPreview.style.filter = 'none';
+      effectLevelSlider.classList.add('hidden');
+      break;
     case 'chrome':
       uploadPreview.style.filter = 'grayscale(' + lvl + ')';
       break;
@@ -216,13 +231,13 @@ var adjustEffect = function (lvl, curEffect) {
       uploadPreview.style.filter = 'sepia(' + lvl + ')';
       break;
     case 'marvin':
-      uploadPreview.style.filter = 'invert(' + lvl * 100 + '%)';
+      uploadPreview.style.filter = 'invert(' + (lvl * MARVIN_LEVEL_MAX) + '%)';
       break;
     case 'phobos':
-      uploadPreview.style.filter = 'blur(' + lvl + ')';
+      uploadPreview.style.filter = 'blur(' + (lvl * PHOBOS_LEVEL_MAX) + 'px)';
       break;
     case 'heat':
-      uploadPreview.style.filter = 'brightness(' + lvl + ')';
+      uploadPreview.style.filter = 'brightness(' + (lvl * HEAT_LEVEL_MAX + HEAT_LEVEL_MIN) + ')';
       break;
   }
 };
