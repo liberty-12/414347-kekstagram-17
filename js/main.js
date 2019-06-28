@@ -246,3 +246,13 @@ var adjustEffect = function (lvl, curEffect) {
 effectLevelPin.addEventListener('click', function () {
   changeEffectLevel();
 });
+
+var comment = document.querySelector('.text__description');
+
+comment.addEventListener('focus', function () {
+  document.removeEventListener('keydown', onPopupEscPress);
+});
+
+comment.addEventListener('blur', function () {
+  document.addEventListener('keydown', onPopupEscPress);
+});
