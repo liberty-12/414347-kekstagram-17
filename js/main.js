@@ -220,10 +220,6 @@ var changeEffectLevel = function () {
 
 var adjustEffect = function (lvl, curEffect) {
   switch (curEffect) {
-    case 'none':
-      uploadPreview.style.filter = 'none';
-      effectLevelSlider.classList.add('hidden');
-      break;
     case 'chrome':
       uploadPreview.style.filter = 'grayscale(' + lvl + ')';
       break;
@@ -238,6 +234,10 @@ var adjustEffect = function (lvl, curEffect) {
       break;
     case 'heat':
       uploadPreview.style.filter = 'brightness(' + (lvl * HEAT_LEVEL_MAX + HEAT_LEVEL_MIN) + ')';
+      break;
+    default:
+      uploadPreview.style.filter = 'none';
+      effectLevelSlider.classList.add('hidden');
       break;
   }
 };
