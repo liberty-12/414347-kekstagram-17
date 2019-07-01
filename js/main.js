@@ -99,26 +99,10 @@ var ESC_KEYCODE = 27;
 var uploadFileField = document.querySelector('#upload-file');
 var uploadPopup = document.querySelector('.img-upload__overlay');
 var uploadClose = document.querySelector('#upload-cancel');
-// var comment = document.querySelector('.text__description');
-var uploadText = document.querySelector('.text');
-var texts = uploadText.children;
-
-// var onPopupEscPress = function (evt) {
-//   if ((evt.keyCode === ESC_KEYCODE) && (evt.target.className !== comment)) {
-//     closeUploadPopup();
-//   }
-// };
+var comment = document.querySelector('.text__description').className;
 
 var onPopupEscPress = function (evt) {
-  var flag = false;
-
-  for (var i = 0; i < texts.length; i++) {
-    if (evt.target === texts[i]) {
-      flag = true;
-    }
-  }
-
-  if ((evt.keyCode === ESC_KEYCODE) && (!flag)) {
+  if ((evt.keyCode === ESC_KEYCODE) && (evt.target.className !== comment)) {
     closeUploadPopup();
   }
 };
