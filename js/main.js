@@ -99,10 +99,9 @@ var ESC_KEYCODE = 27;
 var uploadFileField = document.querySelector('#upload-file');
 var uploadPopup = document.querySelector('.img-upload__overlay');
 var uploadClose = document.querySelector('#upload-cancel');
-var comment = document.querySelector('.text__description').className;
 
 var onPopupEscPress = function (evt) {
-  if ((evt.keyCode === ESC_KEYCODE) && (evt.target.className !== comment)) {
+  if ((evt.keyCode === ESC_KEYCODE) && (evt.target.tagName !== 'TEXTAREA')) {
     closeUploadPopup();
   }
 };
