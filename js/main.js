@@ -99,9 +99,26 @@ var ESC_KEYCODE = 27;
 var uploadFileField = document.querySelector('#upload-file');
 var uploadPopup = document.querySelector('.img-upload__overlay');
 var uploadClose = document.querySelector('#upload-cancel');
+var comment = document.querySelector('.text__description');
+var uploadText = document.querySelector('.text');
+var texts = uploadText.children;
+
+// var onPopupEscPress = function (evt) {
+//   if ((evt.keyCode === ESC_KEYCODE) && (evt.target.className !== comment)) {
+//     closeUploadPopup();
+//   }
+// };
 
 var onPopupEscPress = function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
+  var flag = false;
+
+  for (var i = 0; i < texts.length; i++) {
+    if (evt.target === texts[i]) {
+      flag = true;
+    }
+  }
+
+  if ((evt.keyCode === ESC_KEYCODE) && (!flag)) {
     closeUploadPopup();
   }
 };
@@ -245,14 +262,4 @@ var adjustEffect = function (lvl, curEffect) {
 
 effectLevelPin.addEventListener('click', function () {
   changeEffectLevel();
-});
-
-var comment = document.querySelector('.text__description');
-
-comment.addEventListener('focus', function () {
-  document.removeEventListener('keydown', onPopupEscPress);
-});
-
-comment.addEventListener('blur', function () {
-  document.addEventListener('keydown', onPopupEscPress);
 });
