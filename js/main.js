@@ -201,9 +201,10 @@ effectsList.addEventListener('click', function (evt) {
 });
 
 // EFFECT LEVEL
+
 var changeEffectLevel = function () {
-  var effectLevelPinLeft = effectLevelPin.offsetLeft;
   var effectLevelPinCenter = effectLevelPinLeft + (EFFECT_LEVEL_PIN_WIDTH / 2);
+  var effectLevelPinLeft = effectLevelPin.offsetLeft;
   var effectLevelLineLeft = effectLevelLine.getBoundingClientRect().left;
   var effectLevelLineRight = effectLevelLineLeft + EFFECT_LEVEL_LINE_WIDTH;
 
@@ -245,4 +246,41 @@ var adjustEffect = function (lvl, curEffect) {
 
 effectLevelPin.addEventListener('click', function () {
   changeEffectLevel();
+});
+
+effectLevelPin.addEventListener('mousedown', function (evt) {
+  evt.preventDefault();
+
+  var startCoordX = evt.clientX;
+  var dragged = false;
+
+  var onMouseMove = function (moveEvt) {
+    moveEvt.preventDefault();
+    dragged = true;
+
+    var shiftX = startCoordX - moveEvt.clientX;
+    startCoordX = moveEvt.clientX;
+
+    effectLevelPin.style.left = (effectLevelPin.offsetLeft - shiftX) + 'px';
+
+  };
+
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+
+    if (dragged) {
+      var onClickPreventDefault = function (event) {
+        event.preventDefault();
+        effectLevelPin.removeEventListener('click', onClickPreventDefault);
+      };
+      effectLevelPin.addEventListener('click', onClickPreventDefault);
+    }
+
+  };
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
 });
