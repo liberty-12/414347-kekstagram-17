@@ -272,16 +272,17 @@ effectLevelPin.addEventListener('mousedown', function (evt) {
   var onMouseMove = function (moveEvt) {
     moveEvt.preventDefault();
 
-    var shiftX = startCoordX - moveEvt.clientX;
+    var moveX = moveEvt.clientX;
+    var shiftX = startCoordX - moveX;
 
-    if (moveEvt.clientX > (effectLevelLineRight - EFFECT_LEVEL_PIN_WIDTH / 2)) {
+    if (moveX > (effectLevelLineRight - EFFECT_LEVEL_PIN_WIDTH / 2)) {
       shiftX = startCoordX - effectLevelLineRight;
       startCoordX = effectLevelLineRight;
-    } else if (moveEvt.clientX < effectLevelLineLeft) {
+    } else if (moveX < effectLevelLineLeft) {
       shiftX = startCoordX - effectLevelLineLeft;
       startCoordX = effectLevelLineLeft;
     } else {
-      startCoordX = moveEvt.clientX;
+      startCoordX = moveX;
     }
 
     effectLevelPin.style.left = (effectLevelPin.offsetLeft - shiftX) + 'px';
