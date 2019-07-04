@@ -215,7 +215,7 @@ var effectLevelLineRight;
 var findEffectLevelValue = function () {
   var effectLevelPinLeft = effectLevelPin.offsetLeft;
   var effectLevelPinCenter = effectLevelPinLeft + (EFFECT_LEVEL_PIN_WIDTH / 2);
-  var level = (effectLevelPinCenter / (effectLevelLineRight - effectLevelLineLeft)).toFixed(1);
+  var level = (effectLevelPinCenter / (effectLevelLineRight - effectLevelLineLeft)).toFixed(2);
 
   effectLevelLineLeft = effectLevelLine.getBoundingClientRect().left;
   effectLevelLineRight = effectLevelLineLeft + EFFECT_LEVEL_LINE_WIDTH;
@@ -287,10 +287,12 @@ effectLevelPin.addEventListener('mousedown', function (evt) {
 
     effectLevelPin.style.left = (effectLevelPin.offsetLeft - shiftX) + 'px';
     effectLevelDepth.style.width = (startCoordX - effectLevelLineLeft) + 'px';
+
+    adjustEffect(findEffectLevelValue(), currentEffect);
   };
 
-  var onMouseUp = function (upEvt) {
-    upEvt.preventDefault();
+  var onMouseUp = function () {
+    // upEvt.preventDefault();
 
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
