@@ -192,6 +192,11 @@ var addEffectToUploadPreview = function (effect) {
   currentEffect = effect;
 };
 
+var drawNewEffectPin = function () {
+  effectLevelPin.style.left = (effectLevelLineRight - effectLevelLineLeft) + 'px';
+  effectLevelDepth.style.width = (effectLevelLineRight - effectLevelLineLeft) + 'px';
+};
+
 effectsList.addEventListener('click', function (evt) {
   var target = evt.target;
   if (target.tagName === 'INPUT') {
@@ -199,8 +204,7 @@ effectsList.addEventListener('click', function (evt) {
     addEffectToUploadPreview(targetEffect);
     adjustEffect(EFFECT_LEVEL_MAX, currentEffect);
 
-    effectLevelPin.style.left = (effectLevelLineRight - effectLevelLineLeft) + 'px';
-    effectLevelDepth.style.width = (effectLevelLineRight - effectLevelLineLeft) + 'px';
+    drawNewEffectPin();
   }
 });
 
@@ -208,7 +212,7 @@ var effectLevelLineLeft;
 var effectLevelLineRight;
 
 // EFFECT LEVEL
-var changeEffectLevel = function () {
+var findEffectLevelValue = function () {
   var effectLevelPinLeft = effectLevelPin.offsetLeft;
   var effectLevelPinCenter = effectLevelPinLeft + (EFFECT_LEVEL_PIN_WIDTH / 2);
   var level = (effectLevelPinCenter / (effectLevelLineRight - effectLevelLineLeft)).toFixed(1);
@@ -217,7 +221,11 @@ var changeEffectLevel = function () {
   effectLevelLineRight = effectLevelLineLeft + EFFECT_LEVEL_LINE_WIDTH;
   effectLevelValue.value = level;
 
-  adjustEffect(level, currentEffect);
+  return level;
+};
+
+var changeEffectLevel = function () {
+  adjustEffect(findEffectLevelValue(), currentEffect);
 };
 
 var adjustEffect = function (lvl, curEffect) {
