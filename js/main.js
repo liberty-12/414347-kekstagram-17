@@ -192,8 +192,10 @@ var addEffectToUploadPreview = function (effect) {
   currentEffect = effect;
 };
 
-var drawNewEffectPin = function () {
-  effectLevelPin.style.left = (effectLevelLineRight - effectLevelLineLeft) + 'px';
+var movePinToDefault = function () {
+  findEffectLevelValue();
+
+  effectLevelPin.style.left = (effectLevelLineRight - effectLevelLineLeft - EFFECT_LEVEL_PIN_WIDTH / 2) + 'px';
   effectLevelDepth.style.width = (effectLevelLineRight - effectLevelLineLeft) + 'px';
 };
 
@@ -203,8 +205,7 @@ effectsList.addEventListener('click', function (evt) {
     var targetEffect = target.value;
     addEffectToUploadPreview(targetEffect);
     adjustEffect(EFFECT_LEVEL_MAX, currentEffect);
-
-    drawNewEffectPin();
+    movePinToDefault();
   }
 });
 
