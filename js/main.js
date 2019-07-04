@@ -257,10 +257,6 @@ var adjustEffect = function (lvl, curEffect) {
   }
 };
 
-effectLevelPin.addEventListener('click', function () {
-  changeEffectLevel();
-});
-
 effectLevelPin.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
 
@@ -292,7 +288,7 @@ effectLevelPin.addEventListener('mousedown', function (evt) {
   };
 
   var onMouseUp = function () {
-    // upEvt.preventDefault();
+    changeEffectLevel();
 
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
