@@ -12,49 +12,15 @@
     'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
   ];
 
-  var getRandomElementFromArray = function (arr) {
-    return arr[Math.floor((Math.random() * arr.length))];
-  };
-
-  var getRandomInteger = function (min, max) {
-    return Math.floor(min + Math.random() * (max + 1 - min));
-  };
-
-  var getNewLengthArray = function (arr) {
-    var newArray = [];
-    var newArrayLength = getRandomInteger(1, arr.length);
-
-    for (var i = 0; i < newArrayLength; i++) {
-      newArray.push(getRandomElementFromArray(arr));
-    }
-
-    return newArray;
-  };
-
-  var getMixedArray = function (elementsLength) {
-    var elementsArray = [];
-    var element = getRandomInteger(1, elementsLength);
-
-    while (elementsArray.length < elementsLength) {
-      if (elementsArray.indexOf(element) > -1) {
-        element = getRandomInteger(1, elementsLength);
-      } else {
-        elementsArray.push(element);
-      }
-    }
-
-    return elementsArray;
-  };
-
   var createPhotos = function (commentArray) {
     var photosArray = [];
-    var photoNumbers = getMixedArray(PHOTOS_NUMBER);
+    var photoNumbers = window.util.getMixedArray(PHOTOS_NUMBER);
 
     for (var i = 0; i < PHOTOS_NUMBER; i++) {
       var photo = {
         url: 'photos/' + photoNumbers[i] + '.jpg',
-        comments: getNewLengthArray(commentArray),
-        likes: getRandomInteger(15, 200)
+        comments: window.util.getNewLengthArray(commentArray),
+        likes: window.util.getRandomInteger(15, 200)
       };
 
       photosArray.push(photo);
