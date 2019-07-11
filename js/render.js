@@ -19,13 +19,15 @@
     return pictureElement;
   };
 
-  window.render = function (array) {
-    var fragment = document.createDocumentFragment();
+  window.render = {
+    render: function (array) {
+      var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < array.length; i++) {
-      fragment.appendChild(renderPicture(array[i]));
+      for (var i = 0; i < array.length; i++) {
+        fragment.appendChild(renderPicture(array[i]));
+      }
+
+      pictures.appendChild(fragment);
     }
-
-    pictures.appendChild(fragment);
   };
 })();

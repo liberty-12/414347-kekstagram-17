@@ -5,13 +5,15 @@
 (function () {
   var photos = [];
 
-  var updatePhotos = function () {
-    window.render(photos.slice());
+  window.gallery = {
+    updatePhotos: function () {
+      window.render.render(photos.slice());
+    }
   };
 
   var successHandler = function (data) {
     photos = data;
-    updatePhotos();
+    window.gallery.updatePhotos();
   };
 
   var errorHandler = function (errorMessage) {
