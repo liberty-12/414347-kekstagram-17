@@ -3,14 +3,14 @@
 // RENDERING PICTURES
 
 (function () {
+  var pictures = document.querySelector('.pictures');
+  var pictureTemplate = document
+    .querySelector('#picture')
+    .content
+    .querySelector('.picture');
+
   var successHandler = function (data) {
     var photos = data;
-    var pictures = document.querySelector('.pictures');
-    var pictureTemplate = document
-      .querySelector('#picture')
-      .content
-      .querySelector('.picture');
-
     var renderPicture = function (photo) {
       var pictureElement = pictureTemplate.cloneNode(true);
 
