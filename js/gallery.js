@@ -1,37 +1,17 @@
 'use strict';
 
-// RENDERING PICTURES
+// SHOW PICTURES
 
 (function () {
-  var pictures = document.querySelector('.pictures');
-  var pictureTemplate = document
-    .querySelector('#picture')
-    .content
-    .querySelector('.picture');
+  var photos = [];
+
+  var updatePhotos = function () {
+    window.render(photos.slice());
+  };
 
   var successHandler = function (data) {
-    var photos = data;
-    var renderPicture = function (photo) {
-      var pictureElement = pictureTemplate.cloneNode(true);
-
-      pictureElement.querySelector('.picture__img').src = photo.url;
-      pictureElement.querySelector('.picture__comments').textContent = photo.comments.length;
-      pictureElement.querySelector('.picture__likes').textContent = photo.likes;
-
-      return pictureElement;
-    };
-
-    var renderPhotosFragment = function (array) {
-      var fragment = document.createDocumentFragment();
-
-      for (var i = 0; i < array.length; i++) {
-        fragment.appendChild(renderPicture(array[i]));
-      }
-
-      pictures.appendChild(fragment);
-    };
-
-    renderPhotosFragment(photos);
+    photos = data;
+    updatePhotos();
   };
 
   var errorHandler = function (errorMessage) {
