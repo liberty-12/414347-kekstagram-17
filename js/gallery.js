@@ -3,14 +3,6 @@
 // SHOW PICTURES
 
 (function () {
-  window.gallery = {
-    photos: [],
-
-    updatePhotos: function (array) {
-      window.render.render(array);
-    }
-  };
-
   var successHandler = function (data) {
     window.gallery.photos = data;
     window.gallery.updatePhotos(window.gallery.photos);
@@ -37,4 +29,12 @@
   };
 
   window.load.load(successHandler, errorHandler);
+
+  window.gallery = {
+    photos: [],
+
+    updatePhotos: function (array) {
+      window.render.render(array);
+    }
+  };
 })();
