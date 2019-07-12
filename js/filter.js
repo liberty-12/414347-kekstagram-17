@@ -9,24 +9,22 @@
   var imgFiltersForm = document.querySelector('.img-filters__form');
   var activeFilterButton = document.querySelector('.img-filters__button--active');
 
-  window.filter = {
-    sort: function (array, sortName) {
-      switch (sortName) {
-        case 'new':
-          array = array.sort(function () {
-            return window.util.getRandomInteger(0, 100) - window.util.getRandomInteger(0, 100);
-          }).slice(0, 10);
-          break;
+  var sort = function (array, sortName) {
+    switch (sortName) {
+      case 'new':
+        array = array.sort(function () {
+          return window.util.getRandomInteger(0, 100) - window.util.getRandomInteger(0, 100);
+        }).slice(0, 10);
+        break;
 
-        case 'discussed':
-          array.sort(function (left, right) {
-            return right.comments.length - left.comments.length;
-          });
-          break;
-      }
-
-      return array;
+      case 'discussed':
+        array.sort(function (left, right) {
+          return right.comments.length - left.comments.length;
+        });
+        break;
     }
+
+    return array;
   };
 
   var lastTimeout;
@@ -46,11 +44,11 @@
 
       switch (filterId) {
         case 'filter-new':
-          sortedPhotos = window.filter.sort(window.gallery.photos.slice(), 'new');
+          sortedPhotos = sort(window.gallery.photos.slice(), 'new');
           debounce(window.gallery.updatePhotos(sortedPhotos), lastTimeout);
           break;
         case 'filter-discussed':
-          sortedPhotos = window.filter.sort(window.gallery.photos.slice(), 'discussed');
+          sortedPhotos = sort(window.gallery.photos.slice(), 'discussed');
           debounce(window.gallery.updatePhotos(sortedPhotos), lastTimeout);
           break;
         default:
