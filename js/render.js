@@ -19,8 +19,14 @@
     return pictureElement;
   };
 
+  var PICTURES_MIN_CHILDNODES = 9;
+
   window.render = {
     render: function (array) {
+      while (pictures.childNodes.length > PICTURES_MIN_CHILDNODES) {
+        pictures.removeChild(pictures.lastChild);
+      }
+
       var fragment = document.createDocumentFragment();
 
       for (var i = 0; i < array.length; i++) {
