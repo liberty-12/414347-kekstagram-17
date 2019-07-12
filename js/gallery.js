@@ -5,15 +5,16 @@
 (function () {
   var photos = [];
 
-  window.gallery = {
-    updatePhotos: function () {
-      window.render.render(photos.slice());
-    }
+
+  // var sortedPhotos = window.filter.sortNew(photos.slice());
+
+  var updatePhotos = function () {
+    window.render.render(photos.slice());
   };
 
   var successHandler = function (data) {
     photos = data;
-    window.gallery.updatePhotos();
+    updatePhotos();
   };
 
   var errorHandler = function (errorMessage) {

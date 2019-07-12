@@ -9,15 +9,34 @@
   var imgFiltersForm = document.querySelector('.img-filters__form');
   var activeFilterButton = document.querySelector('.img-filters__button--active');
 
+  window.filter = {
+    sortNew: function (array) {
+      var n = array.comments.length;
+      for (var i = 0; i < n - 1; i++) {
+        var max = i;
+        for (var j = i + 1; j < n; j++) {
+          if (array[j] > array[max]) {
+            max = j;
+          }
+        }
+        var t = array[max];
+        array[max] = array[i];
+        array[i] = t;
+      }
+      return array;
+
+      // return window.util.getRandomInteger(0, 100) - window.util.getRandomInteger(0, 100);
+    },
+
+    sortDiscussed: function (left, right) {
+      return right.comments.length - left.comments.length;
+    }
+  };
+
   var sortPopular = function () {
     window.gallery.updatePhotos();
   };
 
-  var sortNew = function () {
-    window.gallery.updatePhotos().sort(function () {
-      return window.util.getRandomInteger(0, 100) - window.util.getRandomInteger(0, 100);
-    });
-  };
 
   var sortDiscussed = function () {
     window.gallery.updatePhotos().sort(function (left, right) {
