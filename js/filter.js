@@ -10,38 +10,23 @@
   var activeFilterButton = document.querySelector('.img-filters__button--active');
 
   window.filter = {
-    sortNew: function (array) {
-      var n = array.comments.length;
-      for (var i = 0; i < n - 1; i++) {
-        var max = i;
-        for (var j = i + 1; j < n; j++) {
-          if (array[j] > array[max]) {
-            max = j;
-          }
-        }
-        var t = array[max];
-        array[max] = array[i];
-        array[i] = t;
+    sort: function (array, sortName) {
+      switch (sortName) {
+        case 'new':
+          array = array.sort(function () {
+            return window.util.getRandomInteger(0, 100) - window.util.getRandomInteger(0, 100);
+          }).slice(0, 10);
+          break;
+
+        case 'discussed':
+          array.sort(function (left, right) {
+            return right.comments.length - left.comments.length;
+          });
+          break;
       }
+
       return array;
-
-      // return window.util.getRandomInteger(0, 100) - window.util.getRandomInteger(0, 100);
-    },
-
-    sortDiscussed: function (left, right) {
-      return right.comments.length - left.comments.length;
     }
-  };
-
-  var sortPopular = function () {
-    window.gallery.updatePhotos();
-  };
-
-
-  var sortDiscussed = function () {
-    window.gallery.updatePhotos().sort(function (left, right) {
-      return right.comments.length - left.comments.length;
-    });
   };
 
   var lastTimeout;
@@ -57,16 +42,19 @@
       target.classList.add('img-filters__button--active');
 
       var filterId = target.id;
+      var sortedPhotos;
 
       switch (filterId) {
         case 'filter-new':
-          debounce(sortNew, lastTimeout);
+          sortedPhotos = window.filter.sort(window.gallery.photos.slice(), 'new');
+          debounce(window.gallery.updatePhotos(sortedPhotos), lastTimeout);
           break;
         case 'filter-discussed':
-          debounce(sortDiscussed, lastTimeout);
+          sortedPhotos = window.filter.sort(window.gallery.photos.slice(), 'discussed');
+          debounce(window.gallery.updatePhotos(sortedPhotos), lastTimeout);
           break;
         default:
-          debounce(sortPopular, lastTimeout);
+          debounce(window.gallery.updatePhotos(window.gallery.photos.slice()), lastTimeout);
           break;
       }
 
