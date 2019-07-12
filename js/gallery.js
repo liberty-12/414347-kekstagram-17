@@ -3,18 +3,17 @@
 // SHOW PICTURES
 
 (function () {
-  var photos = [];
+  window.gallery = {
+    photos: [],
 
-
-  // var sortedPhotos = window.filter.sortNew(photos.slice());
-
-  var updatePhotos = function () {
-    window.render.render(photos.slice());
+    updatePhotos: function (array) {
+      window.render.render(array);
+    }
   };
 
   var successHandler = function (data) {
-    photos = data;
-    updatePhotos();
+    window.gallery.photos = data;
+    window.gallery.updatePhotos(window.gallery.photos);
   };
 
   var errorHandler = function (errorMessage) {
