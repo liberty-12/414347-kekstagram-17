@@ -6,6 +6,7 @@
   var successHandler = function (data) {
     window.gallery.photos = data;
     window.gallery.updatePhotos(window.gallery.photos);
+    window.filter.showImgFilters();
   };
 
   var errorHandler = function (errorMessage) {
