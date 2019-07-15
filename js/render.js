@@ -19,13 +19,11 @@
     return pictureElement;
   };
 
-  var PICTURES_MIN_CHILDNODES = 9;
-
   window.render = {
     render: function (array) {
-      while (pictures.childNodes.length > PICTURES_MIN_CHILDNODES) {
-        pictures.removeChild(pictures.lastChild);
-      }
+      document.querySelectorAll('.picture').forEach(function (item) {
+        item.remove();
+      });
 
       var fragment = document.createDocumentFragment();
 
