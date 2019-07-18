@@ -3,15 +3,13 @@
 // show img-upload__overlay
 
 (function () {
-  var ESC_KEYCODE = 27;
-
   var uploadPreview = document.querySelector('.img-upload__preview');
   var uploadFileField = document.querySelector('#upload-file');
   var uploadPopup = document.querySelector('.img-upload__overlay');
   var uploadClose = document.querySelector('#upload-cancel');
 
   var onPopupEscPress = function (evt) {
-    if ((evt.keyCode === ESC_KEYCODE) && (evt.target.tagName !== 'TEXTAREA')) {
+    if ((evt.keyCode === window.util.escCode) && (evt.target.tagName !== 'TEXTAREA')) {
       closeUploadPopup();
     }
   };
@@ -40,7 +38,7 @@
   var mainField = document.querySelector('main');
 
   var onMessageEscPress = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE) {
+    if (evt.keyCode === window.util.escCode) {
       closeMessagePopup();
     }
   };
