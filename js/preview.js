@@ -8,6 +8,8 @@
   var uploadPopup = document.querySelector('.img-upload__overlay');
   var uploadClose = document.querySelector('#upload-cancel');
   var uploadForm = document.querySelector('.img-upload__form');
+  var uploadHashtag = document.querySelector('.text__hashtags');
+  var uploadComment = document.querySelector('.text__description');
   var submitButton = document.querySelector('.img-upload__submit');
   var mainField = document.querySelector('main');
 
@@ -20,7 +22,9 @@
   var openUploadPopup = function () {
     uploadPopup.classList.remove('hidden');
     document.addEventListener('keydown', onPopupEscPress);
-    uploadPreview.style.transform = 'scale(1)';
+    window.form.setDefaultEffects();
+    uploadHashtag.value = '';
+    uploadComment.value = '';
   };
 
   var closeUploadPopup = function () {
