@@ -7,6 +7,9 @@
   var uploadFileField = document.querySelector('#upload-file');
   var uploadPopup = document.querySelector('.img-upload__overlay');
   var uploadClose = document.querySelector('#upload-cancel');
+  var uploadForm = document.querySelector('.img-upload__form');
+  var submitButton = document.querySelector('.img-upload__submit');
+  var mainField = document.querySelector('main');
 
   var onPopupEscPress = function (evt) {
     if ((evt.keyCode === window.util.escCode) && (evt.target.tagName !== 'TEXTAREA')) {
@@ -34,23 +37,9 @@
     closeUploadPopup();
   });
 
-  var submitButton = document.querySelector('.img-upload__submit');
-  var mainField = document.querySelector('main');
-
-  var onMessageEscPress = function (evt) {
-    if (evt.keyCode === window.util.escCode) {
-      closeMessagePopup();
-    }
-  };
-
-  var onMessageClick = function () {
-    closeMessagePopup();
-  };
-
-  var closeMessagePopup = function () {
-    document.querySelector('.error').remove(); // как передать в функцию имя класса?
-    document.removeEventListener('keydown', onMessageEscPress);
-    document.removeEventListener('click', onMessageClick);
+  // ------------------------------------------------ //
+  var closeMessagePopup = function (className) {
+    document.querySelector(className).remove();
   };
 
   // SUCCESS
@@ -63,9 +52,21 @@
 
   var successHandler = function () {
     closeUploadPopup();
-    document.addEventListener('keydown', onMessageEscPress);
-    document.addEventListener('click', onMessageClick);
-    successCloseButoon.addEventListener('click', closeMessagePopup);
+
+    document.addEventListener('keydown', function (evt) {
+      if (evt.keyCode === window.util.escCode) {
+        closeMessagePopup('.success');
+      }
+    });
+
+    document.addEventListener('click', function () {
+      closeMessagePopup('.success');
+    });
+
+    successCloseButoon.addEventListener('click', function () {
+      closeMessagePopup('.success');
+    });
+
     mainField.appendChild(successMessage);
   };
 
@@ -80,9 +81,21 @@
 
   var errorHandler = function () {
     closeUploadPopup();
-    document.addEventListener('keydown', onMessageEscPress);
-    document.addEventListener('click', onMessageClick);
-    errorCloseButoon.addEventListener('click', closeMessagePopup);
+
+    document.addEventListener('keydown', function (evt) {
+      if (evt.keyCode === window.util.escCode) {
+        closeMessagePopup('.error');
+      }
+    });
+
+    document.addEventListener('click', function () {
+      closeMessagePopup('.error');
+    });
+
+    errorCloseButoon.addEventListener('click', function () {
+      closeMessagePopup('.error');
+    });
+
     mainField.appendChild(errorMessage);
   };
 
@@ -91,6 +104,7 @@
   submitButton.addEventListener('click', function (evt) {
     evt.preventDefault();
 
-    window.send.send(successHandler, errorHandler);
+    window.send.send(new FormData(uploadForm), successHandler, errorHandler);
   });
+
 })();
