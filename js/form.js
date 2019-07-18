@@ -55,9 +55,20 @@
   var effectLevelDepth = document.querySelector('.effect-level__depth');
   var effectLevelValue = document.querySelector('.effect-level__value');
   var effectLevelLine = document.querySelector('.effect-level__line');
+  var effectInputNone = document.querySelector('#effect-none');
   var currentEffect = '';
 
+
   effectLevelSlider.classList.add('hidden');
+
+  var setDefaultEffects = function () {
+    effectInputNone.checked = 'true';
+    uploadPreview.classList.add('effects__preview--none');
+    effectLevelSlider.classList.add('hidden');
+    uploadPreview.style.filter = 'none';
+    uploadPreview.style.transform = 'scale(1)';
+    scaleValue.value = '' + SCALE_VALUE_MAX;
+  };
 
   var addEffectToUploadPreview = function (effect) {
     uploadPreview.classList.remove('effects__preview--' + currentEffect);
@@ -173,4 +184,8 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
+
+  window.form = {
+    setDefaultEffects: setDefaultEffects
+  };
 })();
