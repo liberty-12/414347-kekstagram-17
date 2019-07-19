@@ -7,8 +7,8 @@
   var bigPictureCommentsCount = bigPicture.querySelector('.comments-count');
   var bigPictureSocialCaption = bigPicture.querySelector('.social__caption');
   var bigPictureSocialComments = bigPicture.querySelector('.social__comments');
-  var bigPictureSocialCommentsCount = bigPicture.querySelector('.social__comment-count');
-  var bigPictureCommentsLoader = bigPicture.querySelector('.comments-loader');
+  // var bigPictureSocialCommentsCount = bigPicture.querySelector('.social__comment-count');
+  // var bigPictureCommentsLoader = bigPicture.querySelector('.comments-loader');
   var bigPictureCancel = document.querySelector('.big-picture__cancel');
 
   function onPopupEscKeydown(evt) {
