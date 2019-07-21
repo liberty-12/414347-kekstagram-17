@@ -10,7 +10,6 @@
   var uploadForm = document.querySelector('.img-upload__form');
   var uploadHashtag = document.querySelector('.text__hashtags');
   var uploadComment = document.querySelector('.text__description');
-  var submitButton = document.querySelector('.img-upload__submit');
   var mainField = document.querySelector('main');
 
   var onPopupEscPress = function (evt) {
