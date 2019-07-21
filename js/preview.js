@@ -105,9 +105,7 @@
 
 
   // EVENT
-  submitButton.addEventListener('click', function (evt) {
-    evt.preventDefault();
-
+  uploadForm.addEventListener('submit', function () {
     window.send.send(new FormData(uploadForm), successHandler, errorHandler);
   });
 
