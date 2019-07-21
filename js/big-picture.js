@@ -29,7 +29,7 @@
     var elementP = document.createElement('p');
 
     elementImg.classList.add('social__picture');
-    elementImg.alt = 'Изображение аватараы';
+    elementImg.alt = '' + comment.name;
     elementImg.src = '' + comment.avatar;
 
     elementP.classList.add('social__text');
@@ -59,10 +59,13 @@
   // }
 
   function insertComments(element) {
+    var COMMENTS_COUNT = 5;
     var i;
-    for (i = 0; i < 5; i++) {
-      bigPictureSocialComments.appendChild(renderCommentTemplate(element.comments[i]));
+    var commentsFragment = document.createDocumentFragment();
+    for (i = 0; i < COMMENTS_COUNT; i++) {
+      commentsFragment.appendChild(renderCommentTemplate(element.comments[i]));
     }
+    bigPictureSocialComments.appendChild(commentsFragment);
 
     // bigPictureCommentsLoader.addEventListener('click', function () {
     //   for (var j = i; j < (i + 5); j++) {
@@ -72,14 +75,14 @@
     // });
   }
 
-  function showBigPicture(photo) {
+  var showBigPicture = function (photo) {
     bigPicture.classList.remove('hidden');
     bigPictureCancel.addEventListener('click', closePopup);
     document.addEventListener('keydown', onPopupEscKeydown);
     bigPictureSocialComments.innerHTML = '';
     generateBigPicture(photo);
     insertComments(photo);
-  }
+  };
 
   // bigPictureSocialCommentsCount.classList.add('visually-hidden');
   // bigPictureCommentsLoader.classList.add('visually-hidden');
