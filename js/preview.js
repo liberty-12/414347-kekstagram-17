@@ -52,7 +52,7 @@
     .content
     .querySelector('.success');
   var successMessage = successMessageTemplate.cloneNode(true);
-  var successCloseButoon = successMessage.querySelector('.success__button');
+  var successCloseButton = successMessage.querySelector('.success__button');
 
   var successHandler = function () {
     closeUploadPopup();
@@ -67,7 +67,7 @@
       closeMessagePopup('.success');
     });
 
-    successCloseButoon.addEventListener('click', function () {
+    successCloseButton.addEventListener('click', function () {
       closeMessagePopup('.success');
     });
 
@@ -81,7 +81,7 @@
     .querySelector('.error');
 
   var errorMessage = errorMessageTemplate.cloneNode(true);
-  var errorCloseButoon = errorMessage.querySelector('.error__buttons');
+  var errorCloseButton = errorMessage.querySelector('.error__buttons');
 
   var errorHandler = function () {
     closeUploadPopup();
@@ -96,7 +96,7 @@
       closeMessagePopup('.error');
     });
 
-    errorCloseButoon.addEventListener('click', function () {
+    errorCloseButton.addEventListener('click', function () {
       closeMessagePopup('.error');
     });
 
