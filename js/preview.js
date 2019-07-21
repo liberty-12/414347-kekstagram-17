@@ -14,8 +14,8 @@
   var mainField = document.querySelector('main');
 
   var onPopupEscPress = function (evt) {
-    if ((evt.keyCode === window.util.escCode) && (evt.target.tagName !== 'TEXTAREA')) {
-      closeUploadPopup();
+    if (evt.target.tagName !== 'TEXTAREA') {
+      window.util.escCodeEvent(evt, closeUploadPopup);
     }
   };
 
