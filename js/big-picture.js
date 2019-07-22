@@ -11,19 +11,19 @@
   // var bigPictureCommentsLoader = bigPicture.querySelector('.comments-loader');
   var bigPictureCancel = document.querySelector('.big-picture__cancel');
 
-  function onPopupEscKeydown(evt) {
+  var onPopupEscKeydown = function (evt) {
     if (evt.keyCode === window.util.escCode) {
       closePopup();
     }
-  }
+  };
 
-  function closePopup() {
+  var closePopup = function () {
     bigPicture.classList.add('hidden');
     bigPictureCancel.removeEventListener('click', closePopup);
     document.removeEventListener('keydown', onPopupEscKeydown);
-  }
+  };
 
-  function renderCommentTemplate(comment) {
+  var renderCommentTemplate = function (comment) {
     var elementLi = document.createElement('li');
     var elementImg = document.createElement('img');
     var elementP = document.createElement('p');
@@ -40,14 +40,14 @@
     elementLi.appendChild(elementP);
 
     return elementLi;
-  }
+  };
 
-  function generateBigPicture(element) {
+  var generateBigPicture = function (element) {
     bigPictureImg.querySelector('img').src = element.url;
     bigPictureLikesCount.textContent = element.likes;
     bigPictureCommentsCount.textContent = element.comments.length;
     bigPictureSocialCaption.textContent = element.description;
-  }
+  };
   //
   // function insertComments(element) {
   //   var fragment = document.createDocumentFragment();
@@ -58,7 +58,7 @@
   //   bigPictureSocialComments.appendChild(fragment);
   // }
 
-  function insertComments(element) {
+  var insertComments = function (element) {
     var COMMENTS_COUNT = 5;
     var i;
     var commentsFragment = document.createDocumentFragment();
@@ -66,14 +66,7 @@
       commentsFragment.appendChild(renderCommentTemplate(element.comments[i]));
     }
     bigPictureSocialComments.appendChild(commentsFragment);
-
-    // bigPictureCommentsLoader.addEventListener('click', function () {
-    //   for (var j = i; j < (i + 5); j++) {
-    //     bigPictureSocialComments.appendChild(renderCommentTemplate(element.comments[j]));
-    //   }
-    //   i = j;
-    // });
-  }
+  };
 
   var showBigPicture = function (photo) {
     bigPicture.classList.remove('hidden');
