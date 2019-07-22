@@ -13,7 +13,8 @@
   var mainField = document.querySelector('main');
 
   var onPopupEscPress = function (evt) {
-    if (evt.target.tagName !== 'TEXTAREA') {
+    var className = evt.target.className.split(' ')[0];
+    if (((evt.target.tagName !== 'TEXTAREA') && (evt.target.tagName !== 'INPUT')) || (className === 'effects__radio')) {
       window.util.escCodeEvent(evt, closeUploadPopup);
     }
   };
