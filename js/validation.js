@@ -34,11 +34,15 @@
           hashtagField.style.border = '3px solid red';
           hashtagField.setCustomValidity('Длина хэш-тега должна быть не более ' + HASHTAG_MAX_LENGTH + ' символов');
         } else {
-          for (var j = 0; j < hashtags.length; j++) {
-            if (hashtags[i].toLowerCase() === hashtags[j].toLowerCase() && i !== j) {
-              var doubleTag = hashtags[j];
+          var doubleTag;
+
+          hashtags.forEach(function (item, j) {
+            if (hashtags[i].toLowerCase() === item.toLowerCase() && i !== j) {
+              doubleTag = item;
             }
-          } if (doubleTag !== undefined) {
+          });
+
+          if (doubleTag !== undefined) {
             hashtagField.style.border = '3px solid red';
             hashtagField.setCustomValidity('Теги не должны повторяться');
           } else {
