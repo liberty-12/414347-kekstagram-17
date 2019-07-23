@@ -25,6 +25,7 @@
     window.form.setDefaultEffects();
     uploadHashtag.value = '';
     uploadComment.value = '';
+    window.validation.hashtagField.addEventListener('input', window.validation.validateHashtagField);
   };
 
   var closeUploadPopup = function () {
