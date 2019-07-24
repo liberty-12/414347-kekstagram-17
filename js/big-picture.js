@@ -7,7 +7,6 @@
   var bigPictureCommentsCount = bigPicture.querySelector('.comments-count');
   var bigPictureSocialCaption = bigPicture.querySelector('.social__caption');
   var bigPictureSocialComments = bigPicture.querySelector('.social__comments');
-  var bigPictureSocialCommentsCount = bigPicture.querySelector('.social__comment-count');
   var bigPictureCommentsLoader = bigPicture.querySelector('.social__comments-loader');
   var bigPictureCancel = document.querySelector('.big-picture__cancel');
   var MAX_COMMENT_COUNT = 5;
@@ -62,11 +61,14 @@
     bigPictureCancel.addEventListener('click', closePopup);
     document.addEventListener('keydown', onPopupEscKeydown);
     bigPictureSocialComments.innerHTML = '';
+    bigPictureCommentsLoader.classList.add('hidden');
     generateBigPicture(photo);
 
     var comments = photo.comments.slice();
     var commentsToPublish = comments.slice(0, MAX_COMMENT_COUNT);
-    bigPictureCommentsLoader.classList.remove('hidden');
+    if (comments.length > 5) {
+      bigPictureCommentsLoader.classList.remove('hidden');
+    }
     insertComments(commentsToPublish);
 
     var onCommentsLoaderClick = function () {
