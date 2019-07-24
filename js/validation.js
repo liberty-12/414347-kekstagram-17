@@ -17,7 +17,6 @@
       }
 
       for (var i = 0; i < hashtags.length; i++) {
-        // console.log('test ' + hashtags[i].slice(1).indexOf('#'))
         if (hashtags.length > HASHTAG_MAX_NUMBER) {
           hashtagField.setCustomValidity('Не более ' + HASHTAG_MAX_NUMBER + ' тегов');
           hashtagField.style.border = '3px solid red';
