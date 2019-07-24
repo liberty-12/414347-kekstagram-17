@@ -34,15 +34,7 @@
           hashtagField.style.border = '3px solid red';
           hashtagField.setCustomValidity('Длина хэш-тега должна быть не более ' + HASHTAG_MAX_LENGTH + ' символов');
         } else {
-          var doubleTag;
-
-          hashtags.forEach(function (item, j) {
-            if (hashtags[i].toLowerCase() === item.toLowerCase() && i !== j) {
-              doubleTag = item;
-            }
-          });
-
-          if (doubleTag !== undefined) {
+          if (window.util.checkSameElements(hashtags)) {
             hashtagField.style.border = '3px solid red';
             hashtagField.setCustomValidity('Теги не должны повторяться');
           } else {
