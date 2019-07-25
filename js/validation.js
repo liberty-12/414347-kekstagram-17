@@ -10,11 +10,7 @@
 
   window.validation = {
     validateHashtagField: function () {
-      if (hashtagField.value[hashtagField.value.length - 1] === ' ') {
-        hashtags = hashtagField.value.slice(0, hashtagField.value.length - 1).split(' ');
-      } else {
-        hashtags = hashtagField.value.split(' ');
-      }
+      hashtags = hashtagField.value.trim().split(' ');
 
       for (var i = 0; i < hashtags.length; i++) {
         if (hashtags.length > HASHTAG_MAX_NUMBER) {
