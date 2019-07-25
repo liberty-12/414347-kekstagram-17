@@ -3,7 +3,6 @@
 // show img-upload__overlay
 
 (function () {
-  // var uploadPreview = document.querySelector('.img-upload__preview');
   var uploadFileField = document.querySelector('#upload-file');
   var uploadPopup = document.querySelector('.img-upload__overlay');
   var uploadClose = document.querySelector('#upload-cancel');
