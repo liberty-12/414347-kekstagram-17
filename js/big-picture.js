@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var MAX_COMMENT_COUNT = 5;
+
   var bigPicture = document.querySelector('.big-picture');
   var bigPictureImg = bigPicture.querySelector('.big-picture__img');
   var bigPictureLikesCount = bigPicture.querySelector('.likes-count');
@@ -10,7 +12,6 @@
   var bigPictureCommentsLoader = bigPicture.querySelector('.social__comments-loader');
   var bigPictureCancel = document.querySelector('.big-picture__cancel');
   var body = document.querySelector('body');
-  var MAX_COMMENT_COUNT = 5;
 
   var onPopupEscKeydown = function (evt) {
     window.util.escCodeEvent(evt, closePopup);
