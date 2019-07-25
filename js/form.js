@@ -11,7 +11,7 @@
   var scaleValue = document.querySelector('.scale__control--value');
   var uploadPreview = document.querySelector('.img-upload__preview');
 
-  var increaseValue = function () {
+  var onIncreaseValueClick = function () {
     var intScaleValue = parseInt(scaleValue.value, 10);
 
     if (scaleValue.value < SCALE_VALUE_MAX) {
@@ -21,7 +21,7 @@
     transformUploadPreview(scaleValue.value);
   };
 
-  var decreaseValue = function () {
+  var onDecreaseValueClick = function () {
     if (scaleValue.value > SCALE_VALUE_MIN) {
       scaleValue.value -= SCALE_VALUE_STEP;
     }
@@ -36,13 +36,8 @@
     }
   };
 
-  scaleBigger.addEventListener('click', function () {
-    increaseValue();
-  });
-
-  scaleSmaller.addEventListener('click', function () {
-    decreaseValue();
-  });
+  scaleBigger.addEventListener('click', onIncreaseValueClick);
+  scaleSmaller.addEventListener('click', onDecreaseValueClick);
 
   // EFFECTS
   var EFFECT_LEVEL_LINE_WIDTH = 495 - 20 - 20;

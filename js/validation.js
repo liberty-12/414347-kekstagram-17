@@ -10,7 +10,7 @@
   var hashtags = [];
 
   window.validation = {
-    validateHashtagField: function () {
+    onHashtagFieldInput: function () {
       hashtags = hashtagField.value.trim().split(' ');
 
       for (var i = 0; i < hashtags.length; i++) {
