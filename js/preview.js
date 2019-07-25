@@ -11,9 +11,11 @@
   var uploadHashtag = document.querySelector('.text__hashtags');
   var uploadComment = document.querySelector('.text__description');
   var mainField = document.querySelector('main');
+  var hashtagField = document.querySelector('.text__hashtags');
 
   var onPopupEscPress = function (evt) {
-    if (evt.target.tagName !== 'TEXTAREA') {
+    var className = evt.target.className.split(' ')[0];
+    if (((evt.target.tagName !== 'TEXTAREA') && (evt.target.tagName !== 'INPUT')) || (className === 'effects__radio')) {
       window.util.escCodeEvent(evt, closeUploadPopup);
     }
   };
@@ -24,11 +26,13 @@
     window.form.setDefaultEffects();
     uploadHashtag.value = '';
     uploadComment.value = '';
+    hashtagField.addEventListener('input', window.validation.validateHashtagField);
   };
 
   var closeUploadPopup = function () {
     uploadPopup.classList.add('hidden');
     document.removeEventListener('keydown', onPopupEscPress);
+    hashtagField.removeEventListener('input', window.validation.validateHashtagField);
     uploadFileField.value = '';
   };
 

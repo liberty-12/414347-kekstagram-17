@@ -1,11 +1,6 @@
 'use strict';
 
 (function () {
-  var getRandomElementFromArray = function (arr) {
-    return arr[Math.floor((Math.random() * arr.length))];
-  };
-
-  // 27
   var ESC_CODE = 27;
 
   window.util = {
@@ -19,30 +14,20 @@
       return Math.floor(min + Math.random() * (max + 1 - min));
     },
 
-    getNewLengthArray: function (arr) {
+    checkSameElements: function (array) {
       var newArray = [];
-      var newArrayLength = window.util.getRandomInteger(1, arr.length);
+      var hasSameElement = false;
 
-      for (var i = 0; i < newArrayLength; i++) {
-        newArray.push(getRandomElementFromArray(arr));
-      }
-
-      return newArray;
-    },
-
-    getMixedArray: function (elementsLength) {
-      var elementsArray = [];
-      var element = window.util.getRandomInteger(1, elementsLength);
-
-      while (elementsArray.length < elementsLength) {
-        if (elementsArray.indexOf(element) > -1) {
-          element = window.util.getRandomInteger(1, elementsLength);
+      for (var i = 0; i < array.length; i++) {
+        if (newArray.indexOf(array[i].toLowerCase()) === -1) {
+          newArray.push(array[i]);
         } else {
-          elementsArray.push(element);
+          hasSameElement = true;
+          break;
         }
       }
 
-      return elementsArray;
+      return hasSameElement;
     }
   };
 })();
