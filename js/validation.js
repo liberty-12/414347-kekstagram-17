@@ -16,7 +16,7 @@
         if (hashtags.length > HASHTAG_MAX_NUMBER) {
           hashtagField.setCustomValidity('Не более ' + HASHTAG_MAX_NUMBER + ' тегов');
           hashtagField.style.border = '3px solid red';
-        } else if (hashtags[i][0] !== '#') {
+        } else if ((hashtags[i][0] !== '#') && (hashtags[i].length > 0)) {
           hashtagField.style.border = '3px solid red';
           hashtagField.setCustomValidity('Хэш-тег должен начинаться с символа `#` (решётка)');
         } else if ((hashtags[i][0] === '#') && (hashtags[i].length === 1)) {
@@ -28,20 +28,13 @@
         } else if (hashtags[i].length > HASHTAG_MAX_LENGTH) {
           hashtagField.style.border = '3px solid red';
           hashtagField.setCustomValidity('Длина хэш-тега должна быть не более ' + HASHTAG_MAX_LENGTH + ' символов');
+        } else if (window.util.checkSameElements(hashtags)) {
+          hashtagField.style.border = '3px solid red';
+          hashtagField.setCustomValidity('Теги не должны повторяться');
         } else {
-          if (window.util.checkSameElements(hashtags)) {
-            hashtagField.style.border = '3px solid red';
-            hashtagField.setCustomValidity('Теги не должны повторяться');
-          } else {
-            hashtagField.style.border = '';
-            hashtagField.setCustomValidity('');
-          }
+          hashtagField.style.border = '';
+          hashtagField.setCustomValidity('');
         }
-      }
-
-      if ((hashtags[0] === '') && (hashtags.length === 1)) {
-        hashtagField.style.border = '';
-        hashtagField.setCustomValidity('');
       }
     }
   };
