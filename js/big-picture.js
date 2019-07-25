@@ -65,9 +65,12 @@
     generateBigPicture(photo);
 
     var comments = photo.comments.slice();
-    var commentsToPublish = comments.slice(0, MAX_COMMENT_COUNT);
+    var commentsToPublish = [];
     if (comments.length > 5) {
+      commentsToPublish = comments.slice(0, MAX_COMMENT_COUNT);
       bigPictureCommentsLoader.classList.remove('hidden');
+    } else {
+      commentsToPublish = comments;
     }
     insertComments(commentsToPublish);
 
