@@ -47,8 +47,6 @@
         hashtagField.style.border = '';
         hashtagField.setCustomValidity('');
       }
-    },
-
-    hashtagField: hashtagField
+    }
   };
 })();
