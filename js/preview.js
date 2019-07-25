@@ -45,10 +45,6 @@
   });
 
   // ------------------------------------------------ //
-  var closeMessagePopup = function (className) {
-    document.querySelector(className).remove();
-  };
-
   // SUCCESS
   var successMessageTemplate = document
     .querySelector('#success')
@@ -57,22 +53,22 @@
   var successMessage = successMessageTemplate.cloneNode(true);
   var successCloseButton = successMessage.querySelector('.success__button');
 
+  var closeSuccessPopup = function () {
+    document.querySelector('.success').remove();
+    document.removeEventListener('keydown', onSuccessPopupEscPress);
+    document.removeEventListener('click', closeSuccessPopup);
+  };
+
+  var onSuccessPopupEscPress = function (evt) {
+    window.util.escCodeEvent(evt, closeSuccessPopup);
+  };
+
   var successHandler = function () {
     closeUploadPopup();
 
-    document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === window.util.escCode) {
-        closeMessagePopup('.success');
-      }
-    });
-
-    document.addEventListener('click', function () {
-      closeMessagePopup('.success');
-    });
-
-    successCloseButton.addEventListener('click', function () {
-      closeMessagePopup('.success');
-    });
+    document.addEventListener('keydown', onSuccessPopupEscPress);
+    document.addEventListener('click', closeSuccessPopup);
+    successCloseButton.addEventListener('click', closeSuccessPopup);
 
     mainField.appendChild(successMessage);
   };
@@ -86,22 +82,22 @@
   var errorMessage = errorMessageTemplate.cloneNode(true);
   var errorCloseButton = errorMessage.querySelector('.error__buttons');
 
+  var closeErrorPopup = function () {
+    document.querySelector('.error').remove();
+    document.removeEventListener('keydown', onErrorPopupEscPress);
+    document.removeEventListener('click', closeErrorPopup);
+  };
+
+  var onErrorPopupEscPress = function (evt) {
+    window.util.escCodeEvent(evt, closeErrorPopup);
+  };
+
   var errorHandler = function () {
     closeUploadPopup();
 
-    document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === window.util.escCode) {
-        closeMessagePopup('.error');
-      }
-    });
-
-    document.addEventListener('click', function () {
-      closeMessagePopup('.error');
-    });
-
-    errorCloseButton.addEventListener('click', function () {
-      closeMessagePopup('.error');
-    });
+    document.addEventListener('keydown', onErrorPopupEscPress);
+    document.addEventListener('click', closeErrorPopup);
+    errorCloseButton.addEventListener('click', closeErrorPopup);
 
     mainField.appendChild(errorMessage);
   };
