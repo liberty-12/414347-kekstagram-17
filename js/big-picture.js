@@ -9,6 +9,7 @@
   var bigPictureSocialComments = bigPicture.querySelector('.social__comments');
   var bigPictureCommentsLoader = bigPicture.querySelector('.social__comments-loader');
   var bigPictureCancel = document.querySelector('.big-picture__cancel');
+  var body = document.querySelector('body');
   var MAX_COMMENT_COUNT = 5;
 
   var onPopupEscKeydown = function (evt) {
@@ -19,6 +20,7 @@
     bigPicture.classList.add('hidden');
     bigPictureCancel.removeEventListener('click', closePopup);
     document.removeEventListener('keydown', onPopupEscKeydown);
+    body.classList.remove('modal-open');
   };
 
   var renderCommentTemplate = function (comment) {
@@ -65,6 +67,7 @@
     document.addEventListener('keydown', onPopupEscKeydown);
     bigPictureSocialComments.innerHTML = '';
     bigPictureCommentsLoader.classList.add('hidden');
+    body.classList.add('modal-open');
 
     generateBigPicture(photo);
 
