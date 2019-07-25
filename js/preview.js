@@ -11,6 +11,7 @@
   var uploadHashtag = document.querySelector('.text__hashtags');
   var uploadComment = document.querySelector('.text__description');
   var mainField = document.querySelector('main');
+  var hashtagField = document.querySelector('.text__hashtags');
 
   var onPopupEscPress = function (evt) {
     var className = evt.target.className.split(' ')[0];
@@ -25,12 +26,13 @@
     window.form.setDefaultEffects();
     uploadHashtag.value = '';
     uploadComment.value = '';
-    window.validation.hashtagField.addEventListener('input', window.validation.validateHashtagField);
+    hashtagField.addEventListener('input', window.validation.validateHashtagField);
   };
 
   var closeUploadPopup = function () {
     uploadPopup.classList.add('hidden');
     document.removeEventListener('keydown', onPopupEscPress);
+    hashtagField.removeEventListener('input', window.validation.validateHashtagField);
     uploadFileField.value = '';
   };
 
