@@ -14,14 +14,22 @@
   var body = document.querySelector('body');
 
   var onPopupEscKeydown = function (evt) {
-    window.util.escCodeEvent(evt, onClosePopupClick);
+    window.util.escCodeEvent(evt, сlosePopup);
   };
 
-  var onClosePopupClick = function () {
+  var сlosePopup = function () {
     bigPicture.classList.add('hidden');
-    bigPictureCancel.removeEventListener('click', onClosePopupClick);
+    bigPictureCancel.removeEventListener('click', function (evt) {
+      onClosePopupClick(evt);
+    });
     document.removeEventListener('keydown', onPopupEscKeydown);
     body.classList.remove('modal-open');
+  };
+
+  var onClosePopupClick = function (evt) {
+    evt.preventDefault();
+
+    сlosePopup();
   };
 
   var renderCommentTemplate = function (comment) {
@@ -62,9 +70,13 @@
   var showBigPicture = function (photo) {
     var comments = photo.comments.slice();
     var commentsToPublish = [];
+    var nextComments = [];
+    var nextCommentsToPublish = [];
 
     bigPicture.classList.remove('hidden');
-    bigPictureCancel.addEventListener('click', onClosePopupClick);
+    bigPictureCancel.addEventListener('click', function (evt) {
+      onClosePopupClick(evt);
+    });
     document.addEventListener('keydown', onPopupEscKeydown);
     bigPictureSocialComments.innerHTML = '';
     bigPictureCommentsLoader.classList.add('hidden');
@@ -75,16 +87,17 @@
     if (comments.length > MAX_COMMENT_COUNT) {
       commentsToPublish = comments.slice(0, MAX_COMMENT_COUNT);
       bigPictureCommentsLoader.classList.remove('hidden');
+      nextComments = comments;
     } else {
       commentsToPublish = comments;
     }
     insertComments(commentsToPublish);
 
     var onCommentsLoaderClick = function () {
-      var nextComments = comments.slice(MAX_COMMENT_COUNT);
-      commentsToPublish = nextComments.slice(0, MAX_COMMENT_COUNT);
-      insertComments(commentsToPublish);
-      if (commentsToPublish.length < MAX_COMMENT_COUNT) {
+      nextComments = nextComments.slice(MAX_COMMENT_COUNT);
+      nextCommentsToPublish = nextComments.slice(0, MAX_COMMENT_COUNT);
+      insertComments(nextCommentsToPublish);
+      if (nextCommentsToPublish.length < MAX_COMMENT_COUNT) {
         bigPictureCommentsLoader.classList.add('hidden');
         bigPictureCommentsLoader.removeEventListener('click', onCommentsLoaderClick);
       }

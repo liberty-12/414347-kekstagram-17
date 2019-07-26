@@ -19,19 +19,23 @@
     }
   };
 
+  var onHashtagFieldInput = function () {
+    window.validation.validateHashtagField();
+  };
+
   var openUploadPopup = function () {
     uploadPopup.classList.remove('hidden');
     document.addEventListener('keydown', onPopupEscPress);
     window.form.setDefaultEffects();
     uploadHashtag.value = '';
     uploadComment.value = '';
-    hashtagField.addEventListener('input', window.validation.onHashtagFieldInput);
+    hashtagField.addEventListener('input', onHashtagFieldInput);
   };
 
   var closeUploadPopup = function () {
     uploadPopup.classList.add('hidden');
     document.removeEventListener('keydown', onPopupEscPress);
-    hashtagField.removeEventListener('input', window.validation.onHashtagFieldInput);
+    hashtagField.removeEventListener('input', onHashtagFieldInput);
     uploadFileField.value = '';
   };
 
@@ -52,14 +56,18 @@
   var successMessage = successMessageTemplate.cloneNode(true);
   var successCloseButton = successMessage.querySelector('.success__button');
 
-  var onCloseSuccessPopupClick = function () {
+  var closeSuccessPopup = function () {
     document.querySelector('.success').remove();
     document.removeEventListener('keydown', onSuccessPopupEscPress);
     document.removeEventListener('click', onCloseSuccessPopupClick);
   };
 
+  var onCloseSuccessPopupClick = function () {
+    closeSuccessPopup();
+  };
+
   var onSuccessPopupEscPress = function (evt) {
-    window.util.escCodeEvent(evt, onCloseSuccessPopupClick);
+    window.util.escCodeEvent(evt, closeSuccessPopup);
   };
 
   var successHandler = function () {
@@ -81,14 +89,18 @@
   var errorMessage = errorMessageTemplate.cloneNode(true);
   var errorCloseButton = errorMessage.querySelector('.error__buttons');
 
-  var onCloseErrorPopupClick = function () {
+  var closeErrorPopup = function () {
     document.querySelector('.error').remove();
     document.removeEventListener('keydown', onErrorPopupEscPress);
     document.removeEventListener('click', onCloseErrorPopupClick);
   };
 
+  var onCloseErrorPopupClick = function () {
+    closeErrorPopup();
+  };
+
   var onErrorPopupEscPress = function (evt) {
-    window.util.escCodeEvent(evt, onCloseErrorPopupClick);
+    window.util.escCodeEvent(evt, closeErrorPopup);
   };
 
   var errorHandler = function () {
