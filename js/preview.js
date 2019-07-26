@@ -59,7 +59,14 @@
   var closeSuccessPopup = function () {
     document.querySelector('.success').remove();
     document.removeEventListener('keydown', onSuccessPopupEscPress);
-    document.removeEventListener('click', onCloseSuccessPopupClick);
+    document.removeEventListener('click', onRandomSuccessAreaClick);
+  };
+
+  var onRandomSuccessAreaClick = function (evt) {
+    var target = evt.target;
+    if (target.className === 'success') {
+      closeSuccessPopup();
+    }
   };
 
   var onCloseSuccessPopupClick = function () {
@@ -74,7 +81,7 @@
     closeUploadPopup();
 
     document.addEventListener('keydown', onSuccessPopupEscPress);
-    document.addEventListener('click', onCloseSuccessPopupClick);
+    document.addEventListener('click', onRandomSuccessAreaClick);
     successCloseButton.addEventListener('click', onCloseSuccessPopupClick);
 
     mainField.appendChild(successMessage);
@@ -92,7 +99,14 @@
   var closeErrorPopup = function () {
     document.querySelector('.error').remove();
     document.removeEventListener('keydown', onErrorPopupEscPress);
-    document.removeEventListener('click', onCloseErrorPopupClick);
+    document.removeEventListener('click', onRandomErrorAreaClick);
+  };
+
+  var onRandomErrorAreaClick = function (evt) {
+    var target = evt.target;
+    if (target.className === 'error') {
+      closeErrorPopup();
+    }
   };
 
   var onCloseErrorPopupClick = function () {
@@ -107,7 +121,7 @@
     closeUploadPopup();
 
     document.addEventListener('keydown', onErrorPopupEscPress);
-    document.addEventListener('click', onCloseErrorPopupClick);
+    document.addEventListener('click', onRandomErrorAreaClick);
     errorCloseButton.addEventListener('click', onCloseErrorPopupClick);
 
     mainField.appendChild(errorMessage);
