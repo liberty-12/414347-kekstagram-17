@@ -57,6 +57,8 @@
     bigPictureCommentsCount.textContent = element.comments.length;
     if (element.comments.length < MAX_COMMENT_COUNT) {
       bigPictureCommentsCountText.textContent = element.comments.length + ' из ' + bigPictureCommentsCount.textContent + ' комментариев';
+    } else {
+      bigPictureCommentsCountText.textContent = MAX_COMMENT_COUNT + ' из ' + bigPictureCommentsCount.textContent + ' комментариев';
     }
   };
 
@@ -93,13 +95,19 @@
     }
     insertComments(commentsToPublish);
 
+    var textCommentCount = 0;
     var onCommentsLoaderClick = function () {
       nextComments = nextComments.slice(MAX_COMMENT_COUNT);
       nextCommentsToPublish = nextComments.slice(0, MAX_COMMENT_COUNT);
+      textCommentCount += nextCommentsToPublish.length;
+      var sumCommentCount = MAX_COMMENT_COUNT + textCommentCount;
+      bigPictureCommentsCountText.textContent = sumCommentCount + ' из ' + bigPictureCommentsCount.textContent + ' комментариев';
       insertComments(nextCommentsToPublish);
       if (nextCommentsToPublish.length < MAX_COMMENT_COUNT) {
         bigPictureCommentsLoader.classList.add('hidden');
         bigPictureCommentsLoader.removeEventListener('click', onCommentsLoaderClick);
+        bigPictureCommentsCountText.textContent = bigPictureCommentsCount.textContent + ' из ' + bigPictureCommentsCount.textContent + ' комментариев';
+        textCommentCount = 0;
       }
     };
 
