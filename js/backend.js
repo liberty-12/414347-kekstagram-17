@@ -1,12 +1,12 @@
 'use strict';
 
 (function () {
+  var SUCCESS_CODE = 200;
+  var TIMEOUT = 10000;
   var Url = {
     LOAD: 'https://js.dump.academy/kekstagram/data',
     SEND: 'https://js.dump.academy/kekstagram'
   };
-  var SUCCESS_CODE = 200;
-  var TIMEOUT = 10000;
 
   window.backend = {
     load: function (onSuccess, onError) {
