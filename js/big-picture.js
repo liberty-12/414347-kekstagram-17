@@ -87,16 +87,13 @@
     generateBigPicture(photo);
 
     var onCommentsLoaderClick = function () {
-      if (nextComments.length < MAX_COMMENT_COUNT) {
+      if (nextComments.length <= MAX_COMMENT_COUNT) {
         nextCommentsToPublish = nextComments;
         bigPictureCommentsLoader.classList.add('hidden');
         bigPictureCommentsLoader.removeEventListener('click', onCommentsLoaderClick);
       } else {
         nextCommentsToPublish = nextComments.slice(0, MAX_COMMENT_COUNT);
         nextComments = nextComments.slice(nextCommentsToPublish.length);
-        if (nextComments.length === 0) {
-          bigPictureCommentsLoader.classList.add('hidden');
-        }
       }
 
       textCommentCount += nextCommentsToPublish.length;
