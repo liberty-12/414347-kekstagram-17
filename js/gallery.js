@@ -29,7 +29,7 @@
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
-  window.load.load(successHandler, errorHandler);
+  window.backend.load(successHandler, errorHandler);
 
   window.gallery = {
     photos: [],
