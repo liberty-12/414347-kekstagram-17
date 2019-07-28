@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var TIMEOUT = 500;
   var imgFiltersForm = document.querySelector('.img-filters__form');
   var activeFilterButton = document.querySelector('.img-filters__button--active');
 
@@ -24,7 +25,7 @@
   var lastTimeout;
   var debounce = function (action, last) {
     window.clearTimeout(last);
-    last = window.setTimeout(action, 500);
+    last = window.setTimeout(action, TIMEOUT);
   };
 
   imgFiltersForm.addEventListener('click', function (evt) {
