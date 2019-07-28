@@ -11,7 +11,6 @@
           return window.util.getRandomInteger(0, 100) - window.util.getRandomInteger(0, 100);
         }).slice(0, 10);
         break;
-
       case 'discussed':
         array.sort(function (left, right) {
           return right.comments.length - left.comments.length;
@@ -30,6 +29,7 @@
 
   imgFiltersForm.addEventListener('click', function (evt) {
     var target = evt.target;
+
     if ((target.tagName === 'BUTTON') && (!target.classList.contains('img-filters__button--active'))) {
       activeFilterButton.classList.remove('img-filters__button--active');
       target.classList.add('img-filters__button--active');
@@ -56,6 +56,7 @@
   });
 
   var imgFilters = document.querySelector('.img-filters');
+
   window.filter = {
     showImgFilters: function () {
       imgFilters.classList.remove('img-filters--inactive');

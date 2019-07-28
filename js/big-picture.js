@@ -63,6 +63,7 @@
 
   var insertComments = function (commentArray) {
     var fragment = document.createDocumentFragment();
+
     commentArray.forEach(function (item) {
       fragment.appendChild(renderCommentTemplate(item));
     });

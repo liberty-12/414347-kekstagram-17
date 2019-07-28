@@ -18,6 +18,7 @@
       intScaleValue += SCALE_VALUE_STEP;
       scaleValue.value = intScaleValue;
     }
+
     transformUploadPreview(scaleValue.value);
   };
 
@@ -25,6 +26,7 @@
     if (scaleValue.value > SCALE_VALUE_MIN) {
       scaleValue.value -= SCALE_VALUE_STEP;
     }
+
     transformUploadPreview(scaleValue.value);
   };
 
@@ -52,7 +54,6 @@
   var effectLevelLine = document.querySelector('.effect-level__line');
   var effectInputNone = document.querySelector('#effect-none');
   var currentEffect = '';
-
 
   effectLevelSlider.classList.add('hidden');
 
@@ -82,6 +83,7 @@
 
   effectsList.addEventListener('click', function (evt) {
     var target = evt.target;
+
     if (target.tagName === 'INPUT') {
       var targetEffect = target.value;
       addEffectToUploadPreview(targetEffect);

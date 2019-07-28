@@ -14,6 +14,7 @@
 
   var onPopupEscPress = function (evt) {
     var className = evt.target.className.split(' ')[0];
+
     if (((evt.target.tagName !== 'TEXTAREA') && (evt.target.tagName !== 'INPUT')) || (className === 'effects__radio')) {
       window.util.escCodeEvent(evt, closeUploadPopup);
     }
@@ -64,6 +65,7 @@
 
   var onRandomSuccessAreaClick = function (evt) {
     var target = evt.target;
+
     if (target.className === 'success') {
       closeSuccessPopup();
     }
@@ -104,6 +106,7 @@
 
   var onRandomErrorAreaClick = function (evt) {
     var target = evt.target;
+
     if (target.className === 'error') {
       closeErrorPopup();
     }
