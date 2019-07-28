@@ -3,7 +3,6 @@
 // show img-upload__overlay
 
 (function () {
-  // var uploadPreview = document.querySelector('.img-upload__preview');
   var uploadFileField = document.querySelector('#upload-file');
   var uploadPopup = document.querySelector('.img-upload__overlay');
   var uploadClose = document.querySelector('#upload-cancel');
@@ -20,19 +19,23 @@
     }
   };
 
+  var onHashtagFieldInput = function () {
+    window.validation.validateHashtagField();
+  };
+
   var openUploadPopup = function () {
     uploadPopup.classList.remove('hidden');
     document.addEventListener('keydown', onPopupEscPress);
     window.form.setDefaultEffects();
     uploadHashtag.value = '';
     uploadComment.value = '';
-    hashtagField.addEventListener('input', window.validation.validateHashtagField);
+    hashtagField.addEventListener('input', onHashtagFieldInput);
   };
 
   var closeUploadPopup = function () {
     uploadPopup.classList.add('hidden');
     document.removeEventListener('keydown', onPopupEscPress);
-    hashtagField.removeEventListener('input', window.validation.validateHashtagField);
+    hashtagField.removeEventListener('input', onHashtagFieldInput);
     uploadFileField.value = '';
   };
 
@@ -45,10 +48,6 @@
   });
 
   // ------------------------------------------------ //
-  var closeMessagePopup = function (className) {
-    document.querySelector(className).remove();
-  };
-
   // SUCCESS
   var successMessageTemplate = document
     .querySelector('#success')
@@ -57,22 +56,33 @@
   var successMessage = successMessageTemplate.cloneNode(true);
   var successCloseButton = successMessage.querySelector('.success__button');
 
+  var closeSuccessPopup = function () {
+    document.querySelector('.success').remove();
+    document.removeEventListener('keydown', onSuccessPopupEscPress);
+    document.removeEventListener('click', onRandomSuccessAreaClick);
+  };
+
+  var onRandomSuccessAreaClick = function (evt) {
+    var target = evt.target;
+    if (target.className === 'success') {
+      closeSuccessPopup();
+    }
+  };
+
+  var onCloseSuccessPopupClick = function () {
+    closeSuccessPopup();
+  };
+
+  var onSuccessPopupEscPress = function (evt) {
+    window.util.escCodeEvent(evt, closeSuccessPopup);
+  };
+
   var successHandler = function () {
     closeUploadPopup();
 
-    document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === window.util.escCode) {
-        closeMessagePopup('.success');
-      }
-    });
-
-    document.addEventListener('click', function () {
-      closeMessagePopup('.success');
-    });
-
-    successCloseButton.addEventListener('click', function () {
-      closeMessagePopup('.success');
-    });
+    document.addEventListener('keydown', onSuccessPopupEscPress);
+    document.addEventListener('click', onRandomSuccessAreaClick);
+    successCloseButton.addEventListener('click', onCloseSuccessPopupClick);
 
     mainField.appendChild(successMessage);
   };
@@ -86,22 +96,33 @@
   var errorMessage = errorMessageTemplate.cloneNode(true);
   var errorCloseButton = errorMessage.querySelector('.error__buttons');
 
+  var closeErrorPopup = function () {
+    document.querySelector('.error').remove();
+    document.removeEventListener('keydown', onErrorPopupEscPress);
+    document.removeEventListener('click', onRandomErrorAreaClick);
+  };
+
+  var onRandomErrorAreaClick = function (evt) {
+    var target = evt.target;
+    if (target.className === 'error') {
+      closeErrorPopup();
+    }
+  };
+
+  var onCloseErrorPopupClick = function () {
+    closeErrorPopup();
+  };
+
+  var onErrorPopupEscPress = function (evt) {
+    window.util.escCodeEvent(evt, closeErrorPopup);
+  };
+
   var errorHandler = function () {
     closeUploadPopup();
 
-    document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === window.util.escCode) {
-        closeMessagePopup('.error');
-      }
-    });
-
-    document.addEventListener('click', function () {
-      closeMessagePopup('.error');
-    });
-
-    errorCloseButton.addEventListener('click', function () {
-      closeMessagePopup('.error');
-    });
+    document.addEventListener('keydown', onErrorPopupEscPress);
+    document.addEventListener('click', onRandomErrorAreaClick);
+    errorCloseButton.addEventListener('click', onCloseErrorPopupClick);
 
     mainField.appendChild(errorMessage);
   };

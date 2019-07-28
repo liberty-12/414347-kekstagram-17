@@ -3,9 +3,10 @@
 // hashtag validation
 
 (function () {
-  var hashtagField = document.querySelector('.text__hashtags');
   var HASHTAG_MAX_NUMBER = 5;
   var HASHTAG_MAX_LENGTH = 20;
+
+  var hashtagField = document.querySelector('.text__hashtags');
   var hashtags = [];
 
   window.validation = {
