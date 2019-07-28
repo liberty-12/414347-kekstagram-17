@@ -33,7 +33,8 @@
 
       array.forEach(function (item) {
         var picture = renderPicture(item);
-        picture.addEventListener('click', function () {
+        picture.addEventListener('click', function (evt) {
+          evt.preventDefault();
           window.bigPicture.showBigPicture(item);
         });
 
