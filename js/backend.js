@@ -1,8 +1,10 @@
 'use strict';
 
 (function () {
-  var LOAD_URL = 'https://js.dump.academy/kekstagram/data';
-  var SEND_URL = 'https://js.dump.academy/kekstagram';
+  var Url = {
+    LOAD: 'https://js.dump.academy/kekstagram/data',
+    SEND: 'https://js.dump.academy/kekstagram'
+  };
   var SUCCESS_CODE = 200;
   var TIMEOUT = 10000;
 
@@ -30,7 +32,7 @@
 
       xhr.timeout = TIMEOUT; // 10s
 
-      xhr.open('GET', LOAD_URL);
+      xhr.open('GET', Url.LOAD);
       xhr.send();
     },
 
@@ -51,7 +53,7 @@
         onError();
       });
 
-      xhr.open('POST', SEND_URL);
+      xhr.open('POST', Url.SEND);
       xhr.send(data);
     }
   };
