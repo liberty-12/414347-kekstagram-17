@@ -50,16 +50,15 @@
     return elementLi;
   };
 
+  var generateTextCommentCount = function (count) {
+    bigPictureCommentsCountText.textContent = count + ' из ' + bigPictureCommentsCount.textContent + ' комментариев';
+  };
+
   var generateBigPicture = function (element) {
     bigPictureImg.querySelector('img').src = element.url;
     bigPictureLikesCount.textContent = element.likes;
     bigPictureSocialCaption.textContent = element.description;
     bigPictureCommentsCount.textContent = element.comments.length;
-    if (element.comments.length < MAX_COMMENT_COUNT) {
-      bigPictureCommentsCountText.textContent = element.comments.length + ' из ' + bigPictureCommentsCount.textContent + ' комментариев';
-    } else {
-      bigPictureCommentsCountText.textContent = MAX_COMMENT_COUNT + ' из ' + bigPictureCommentsCount.textContent + ' комментариев';
-    }
   };
 
   var insertComments = function (commentArray) {
@@ -73,9 +72,10 @@
 
   var showBigPicture = function (photo) {
     var comments = photo.comments.slice();
-    var commentsToPublish = [];
-    var nextComments = [];
+    var commentsToPublish = comments;
+    var nextComments = comments;
     var nextCommentsToPublish = [];
+    var textCommentCount = commentsToPublish.length;
 
     bigPicture.classList.remove('hidden');
     bigPictureCancel.addEventListener('click', onClosePopupClick);
@@ -86,32 +86,35 @@
 
     generateBigPicture(photo);
 
+    var onCommentsLoaderClick = function () {
+      if (nextComments.length < MAX_COMMENT_COUNT) {
+        nextCommentsToPublish = nextComments;
+        bigPictureCommentsLoader.classList.add('hidden');
+        bigPictureCommentsLoader.removeEventListener('click', onCommentsLoaderClick);
+      } else {
+        nextCommentsToPublish = nextComments.slice(0, MAX_COMMENT_COUNT);
+        nextComments = nextComments.slice(nextCommentsToPublish.length);
+        if (nextComments.length === 0) {
+          bigPictureCommentsLoader.classList.add('hidden');
+        }
+      }
+
+      textCommentCount += nextCommentsToPublish.length;
+      generateTextCommentCount(textCommentCount);
+
+      insertComments(nextCommentsToPublish);
+    };
+
     if (comments.length > MAX_COMMENT_COUNT) {
       commentsToPublish = comments.slice(0, MAX_COMMENT_COUNT);
       bigPictureCommentsLoader.classList.remove('hidden');
-      nextComments = comments;
-    } else {
-      commentsToPublish = comments;
+      textCommentCount = commentsToPublish.length;
+      nextComments = comments.slice(commentsToPublish.length);
+      bigPictureCommentsLoader.addEventListener('click', onCommentsLoaderClick);
     }
+
     insertComments(commentsToPublish);
-
-    var textCommentCount = 0;
-    var onCommentsLoaderClick = function () {
-      nextComments = nextComments.slice(MAX_COMMENT_COUNT);
-      nextCommentsToPublish = nextComments.slice(0, MAX_COMMENT_COUNT);
-      textCommentCount += nextCommentsToPublish.length;
-      var sumCommentCount = MAX_COMMENT_COUNT + textCommentCount;
-      bigPictureCommentsCountText.textContent = sumCommentCount + ' из ' + bigPictureCommentsCount.textContent + ' комментариев';
-      insertComments(nextCommentsToPublish);
-      if (nextCommentsToPublish.length < MAX_COMMENT_COUNT) {
-        bigPictureCommentsLoader.classList.add('hidden');
-        bigPictureCommentsLoader.removeEventListener('click', onCommentsLoaderClick);
-        bigPictureCommentsCountText.textContent = bigPictureCommentsCount.textContent + ' из ' + bigPictureCommentsCount.textContent + ' комментариев';
-        textCommentCount = 0;
-      }
-    };
-
-    bigPictureCommentsLoader.addEventListener('click', onCommentsLoaderClick);
+    generateTextCommentCount(textCommentCount);
   };
 
   window.bigPicture = {
